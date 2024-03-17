@@ -19,7 +19,11 @@ function App() {
             <Route path="/flashcards-memoriser" element={<FlashcardsList />} />
             <Route
               path="/flashcards-memoriser/add"
-              element={<FlashCardsForm />}
+              element={<FlashCardsForm edit={false} />}
+            />
+            <Route
+              path="/flashcards-memoriser/edit/:listId"
+              element={<FlashCardsForm edit={true} />}
             />
           </Route>
         </Routes>

@@ -1,12 +1,14 @@
-import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useLocalStorage, deleteFromStorage } from "@rehooks/local-storage";
 import "./App.css";
-import { getNextKey } from "./utils";
+import { getNextKey, timestampToDDMMYY } from "./utils";
 
-function FlashCardsForm() {
+function FlashCardsForm({ edit = false }) {
   const navigate = useNavigate();
+  const { listId } = useParams();
   const [flashcards, setFlashcards] = useLocalStorage("flashcards");
+
   const titleInputRef = useRef(null);
   const textInputRef = useRef(null);
 
@@ -17,27 +19,41 @@ function FlashCardsForm() {
 
     const newKey = getNextKey(flashcards);
 
-    console.log("newKey", newKey);
-
-    updatedFlashCards[newKey] = {
-      title: titleInputRef.current.value || "",
-      list: {},
-      created: Date.now(),
-    };
-
+    let newCards = {};
     paragraphs.forEach((paragraph, id) => {
-      updatedFlashCards[newKey]["list"][id] = {
+      newCards[id] = {
         hint: paragraph.split(/\s+/).slice(0, 2).join("\n\n"),
         text: paragraph,
       };
     });
-    console.log(updatedFlashCards);
-    setFlashcards(updatedFlashCards);
 
+    updatedFlashCards[newKey] = {
+      title: titleInputRef.current.value || "",
+      list: newCards,
+      created: Date.now(),
+    };
+
+    setFlashcards(updatedFlashCards);
     titleInputRef.current.value = "";
     textInputRef.current.value = "";
     navigate(`/flashcards-memoriser`);
   };
+
+  useEffect(() => {
+    if (edit) {
+      titleInputRef.current.value = `${
+        flashcards?.[listId]?.title
+      } - ${timestampToDDMMYY(Date.now())}`;
+      let cards = Object.keys(flashcards?.[listId]?.list)
+        .map((id) => flashcards?.[listId]?.list?.[id].text)
+        .join("\n\n");
+
+      textInputRef.current.value = cards;
+    } else {
+      titleInputRef.current.value = "";
+      textInputRef.current.value = "";
+    }
+  }, [edit]);
 
   return (
     <>

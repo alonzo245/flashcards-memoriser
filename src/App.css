@@ -68,6 +68,14 @@
   color: #888;
   border: 0px;
 }
+.fontRow .editButton {
+  width: 16%;
+
+  padding: 5px;
+  background-color: #111;
+  color: #888;
+  border: 0px;
+}
 
 .navRow {
   display: flex;
