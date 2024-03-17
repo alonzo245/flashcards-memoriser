@@ -9,15 +9,19 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <Menu />
         <Routes>
-          <Route path="/flashcards-memoriser/:id" element={<Flashcards />} />
-          <Route path="/" element={<FlashcardsList />} />
-          <Route path="/flashcards-memoriser" element={<FlashcardsList />} />
-          <Route
-            path="/flashcards-memoriser/add"
-            element={<FlashCardsForm />}
-          />
+          <Route element={<Menu />}>
+            <Route
+              path="/flashcards-memoriser/:listId"
+              element={<Flashcards />}
+            />
+            <Route path="/" element={<FlashcardsList />} />
+            <Route path="/flashcards-memoriser" element={<FlashcardsList />} />
+            <Route
+              path="/flashcards-memoriser/add"
+              element={<FlashCardsForm />}
+            />
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>

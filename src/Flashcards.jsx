@@ -8,7 +8,7 @@ function Flashcards() {
   const [flashcards] = useLocalStorage("flashcards");
   const [flashcardsFontSize] = useLocalStorage("flashcardsFontSize", 20);
   const [modal, setModal] = useState("");
-  const { id: listId } = useParams();
+  const { listId } = useParams();
 
   console.log(`flashcards?.[id]?.["list"]`, flashcards?.[listId]?.list, listId);
   return !Object.keys(flashcards?.[listId]?.list || {})?.length ? null : (
