@@ -4,7 +4,7 @@ import { useLocalStorage, deleteFromStorage } from "@rehooks/local-storage";
 import "./App.css";
 import { getNextKey } from "./utils";
 
-function Form() {
+function FlashCardsForm() {
   const navigate = useNavigate();
   const [flashcards, setFlashcards] = useLocalStorage("flashcards");
   const titleInputRef = useRef(null);
@@ -59,4 +59,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default FlashCardsForm;
