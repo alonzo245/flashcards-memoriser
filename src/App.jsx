@@ -44,7 +44,11 @@ function App() {
             </button> */}
             <br />
             <br />
-            {modal}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: modal.split("\n").join("<br />"),
+              }}
+            />
             <br />
             <br />
             <button className="button" onClick={() => setModal("")}>
