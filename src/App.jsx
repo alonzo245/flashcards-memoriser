@@ -60,7 +60,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={Home} />
-        <Route path="/print-outlines" element={Home} />
+        <Route path="/flashcards-memoriser" element={Home} />
       </Routes>
     </BrowserRouter>
   );
