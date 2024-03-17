@@ -1,13 +1,79 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  background-color: #222;
+  color: #999;
+  direction: rtl;
+  text-align: right;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main {
+  font-size: 14px;
+  width: 100vw;
+}
+
+.form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 95vw;
+  margin-top: 10px;
+}
+
+.form .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.form input[type="number"] {
+  width: 90%;
+  padding: 10px;
+  background-color: #222;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  color: #999;
+}
+
+.form input[type="checkbox"] {
+  width: 10%;
+  padding: 10px;
+  background-color: #222;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  color: #999;
+}
+
+/* .form input {
+  width: 100%;
+  padding: 10px;
+  background-color: #222;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  color: #999;
+} */
+
+.form textarea {
+  background-color: #222;
+  width: 100%;
+  height: 300px;
+  color: #999;
+}
+
+.form button {
+  margin-bottom: 10px;
+  background-color: #999;
+  width: 100%;
+  height: 40px;
+}
+.form .title {
+  font-size: 12px;
 }
