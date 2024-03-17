@@ -12,9 +12,16 @@
 .flashcards {
   display: flex;
   flex-wrap: wrap;
-  padding-top: 20px;
+  padding-top: 10px;
 }
-
+.flashcard {
+  border: 1px solid #999;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 4px;
+  font-size: 20px;
+}
 .button {
   width: 99%;
   padding: 5px;
@@ -23,12 +30,45 @@
   border: 0px;
 }
 .button-reset {
-  margin-top: 30px;
+  margin-top: 10px;
+  font-size: 23px;
+  width: 99%;
+  padding: 12px;
+  background-color: #111;
+  color: #888;
+  border: 0px;
 }
-.flashcard {
-  border: 1px solid #999;
-  color: #fff;
-  padding: 10px;
-  border-radius: 4px;
-  margin: 4px;
+
+.fontRow {
+  display: flex;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  height: 40px;
+}
+.fontRow .fontButton {
+  width: 32%;
+
+  padding: 5px;
+  background-color: #111;
+  color: #888;
+  border: 0px;
+}
+
+.modalFontRow {
+  display: flex;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  height: 40px;
+}
+.modalFontRow .fontButton {
+  width: 48%;
+
+  padding: 5px;
+  background-color: #111;
+  color: #888;
+  border: 0px;
 }

@@ -6,10 +6,39 @@ import { useLocalStorage, deleteFromStorage } from "@rehooks/local-storage";
 
 function App() {
   const [flashcards, setFlashcards] = useLocalStorage("flashcards");
+  const [flashcardsFontSize, setFlashcardsFontSize] = useLocalStorage(
+    "flashcardsFontSize",
+    20
+  );
+  const [modalFontSize, setModalFontSize] = useLocalStorage(
+    "modalFontSize",
+    20
+  );
   const [modal, setModal] = useState("");
 
   const Home = (
     <div className="main">
+      <div className="fontRow">
+        <button
+          className="fontButton"
+          onClick={() => setFlashcardsFontSize(flashcardsFontSize + 2)}
+        >
+          הגדל פונט
+        </button>
+        <button
+          className="fontButton"
+          onClick={() => setFlashcardsFontSize(flashcardsFontSize - 2)}
+        >
+          הקטן פונט
+        </button>
+        <button
+          className="fontButton"
+          onClick={() => deleteFromStorage("flashcards")}
+        >
+          נקה טקסט
+        </button>
+      </div>
+
       {!flashcards ? (
         <Form setFlashcards={setFlashcards} />
       ) : (
@@ -19,6 +48,11 @@ function App() {
               return (
                 <div
                   className="flashcard"
+                  style={
+                    !flashcardsFontSize
+                      ? null
+                      : { fontSize: flashcardsFontSize }
+                  }
                   key={id}
                   onClick={() => setModal(flashcards[id].text)}
                 >
@@ -27,23 +61,14 @@ function App() {
               );
             })}
           </div>
-          <button
-            className="button button-reset"
-            onClick={() => {
-              deleteFromStorage("flashcards");
-            }}
-          >
-            התחל מחדש
-          </button>
+
           <div
             className="modal"
-            style={{ display: !!modal ? "block" : "none" }}
+            style={{
+              display: !!modal ? "block" : "none",
+              fontSize: modalFontSize ? `${modalFontSize}px` : `22px`,
+            }}
           >
-            {/* <button className="button" onClick={() => setModal("")}>
-              סגור
-            </button> */}
-            <br />
-            <br />
             <div
               dangerouslySetInnerHTML={{
                 __html: modal.split("\n").join("<br />"),
@@ -51,9 +76,28 @@ function App() {
             />
             <br />
             <br />
-            <button className="button" onClick={() => setModal("")}>
+
+            <button
+              className="button"
+              style={{ padding: "20px" }}
+              onClick={() => setModal("")}
+            >
               סגור
             </button>
+            <div className="modalFontRow">
+              <button
+                className="fontButton"
+                onClick={() => setModalFontSize(modalFontSize + 2)}
+              >
+                הגדל פונט
+              </button>
+              <button
+                className="fontButton"
+                onClick={() => setModalFontSize(modalFontSize - 2)}
+              >
+                הקטן פונט
+              </button>
+            </div>
           </div>
         </>
       )}
