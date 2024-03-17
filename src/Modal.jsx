@@ -1,8 +1,17 @@
 import { useLocalStorage } from "@rehooks/local-storage";
 import "./App.css";
+import { useEffect } from "react";
 
 function Modal({ show, setShow }) {
   const [modalFontSize, setShowFontSize] = useLocalStorage("modalFontSize", 20);
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [show]);
 
   return (
     <div
