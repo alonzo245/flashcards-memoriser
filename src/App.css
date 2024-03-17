@@ -8,11 +8,24 @@
   position: fixed;
   padding: 30px;
   font-size: 21px;
+  overflow-y: auto;
 }
 .flashcards {
   display: flex;
   flex-wrap: wrap;
   padding-top: 10px;
+}
+.flashcardsList {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+.flashcardListItem {
+  border-bottom: 1px solid #999;
+  color: #fff;
+  padding: 10px;
+  margin: 4px;
+  font-size: 20px;
 }
 .flashcard {
   border: 1px solid #999;
@@ -49,6 +62,23 @@
 }
 .fontRow .fontButton {
   width: 32%;
+
+  padding: 5px;
+  background-color: #111;
+  color: #888;
+  border: 0px;
+}
+
+.navRow {
+  display: flex;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  height: 40px;
+}
+.navRow .navButton {
+  width: 49%;
 
   padding: 5px;
   background-color: #111;
