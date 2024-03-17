@@ -7,7 +7,7 @@ function FlashcardsList() {
   const navigate = useNavigate();
   const [flashcards] = useLocalStorage("flashcards");
 
-  const list = Object.keys(flashcards) || {};
+  const list = Object.keys(flashcards || {}) || {};
 
   console.log("flashcards", flashcards);
   return !list?.length ? (

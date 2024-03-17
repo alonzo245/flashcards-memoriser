@@ -11,7 +11,7 @@ function Flashcards() {
   const { id: listId } = useParams();
 
   console.log(`flashcards?.[id]?.["list"]`, flashcards?.[listId]?.list, listId);
-  return !Object.keys(flashcards?.[listId]?.list)?.length ? null : (
+  return !Object.keys(flashcards?.[listId]?.list || {})?.length ? null : (
     <>
       <div className="flashcards">
         {Object.keys(flashcards?.[listId]?.list).map((id) => {
