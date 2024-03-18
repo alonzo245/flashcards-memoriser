@@ -42,7 +42,7 @@ function Modal({ data, setShow }) {
       </div>
       <br />
       <br />
-      <div style={{ marginBottom: "50px" }}>
+      <div style={{ marginBottom: "90px" }}>
         <button
           className="button bottom"
           style={{ padding: "20px" }}
