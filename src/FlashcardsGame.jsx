@@ -9,7 +9,7 @@ function FlashcardsGame() {
   const containerRef = useRef(null);
 
   const [flashcards] = useLocalStorage("flashcards");
-  const [flashcardsFontSize] = useLocalStorage("flashcardsFontSize", 20);
+  const [flashcardsFontSize] = useLocalStorage("flashcardsGameFontSize", 20);
 
   const [list, setList] = useState([0]);
   const [currentIndex, setCurrentIndex] = useState(0);

@@ -13,6 +13,10 @@ function Menu() {
     "flashcardsFontSize",
     20
   );
+  const [flashcardsGameFontSize, setFlashcardsGameFontSize] = useLocalStorage(
+    "flashcardsGameFontSize",
+    20
+  );
 
   const onDelete = () => {
     const result = window.confirm("למחוק?");
@@ -50,13 +54,21 @@ function Menu() {
           </button>
           <button
             className="fontButton"
-            onClick={() => setFlashcardsFontSize(flashcardsFontSize + 2)}
+            onClick={() =>
+              match1
+                ? setFlashcardsFontSize(flashcardsFontSize + 2)
+                : setFlashcardsGameFontSize(flashcardsGameFontSize + 2)
+            }
           >
             הגדל פונט
           </button>
           <button
             className="fontButton"
-            onClick={() => setFlashcardsFontSize(flashcardsFontSize - 2)}
+            onClick={() =>
+              match1
+                ? setFlashcardsFontSize(flashcardsFontSize - 2)
+                : setFlashcardsGameFontSize(flashcardsGameFontSize - 2)
+            }
           >
             הקטן פונט
           </button>
