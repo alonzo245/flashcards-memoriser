@@ -15,6 +15,8 @@ function FlashcardsGame() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [shouldReset, setShouldReset] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [intervalId, setIntervalId] = useState(null);
+  const [autoStart, setAutoStart] = useState(false);
 
   const [modal, setModal] = useState(null);
 
@@ -81,10 +83,21 @@ function FlashcardsGame() {
         style={{
           padding: "20px",
           opacity: shouldReset ? 1 : "1",
-          height: isScrolled ? "100vh" : "calc(100vh - 100px)",
+          height: isScrolled ? "90vh" : "calc(90vh - 100px)",
         }}
       >
         {shouldReset ? "איפוס" : " הבא"}
+      </button>
+      <button
+        onClick={() => {}}
+        className="button-game-next-auto"
+        style={{
+          padding: "20px",
+          opacity: shouldReset ? 1 : "1",
+          height: "80px",
+        }}
+      >
+        {autoStart ? "הפסק" : "התחל"}
       </button>
       <Modal data={modal} setShow={setModal} />
     </>
