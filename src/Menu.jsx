@@ -5,8 +5,9 @@ import "./App.css";
 function Menu() {
   const { listId } = useParams();
   const navigate = useNavigate();
-  const match = useMatch("/flashcards-memoriser/:listId");
-  console.log("match", match);
+  const match1 = useMatch("/flashcards-memoriser/list/:listId");
+  const match2 = useMatch("/flashcards-memoriser/game/:listId");
+
   const [flashcards, setFlashcards] = useLocalStorage("flashcards");
   const [flashcardsFontSize, setFlashcardsFontSize] = useLocalStorage(
     "flashcardsFontSize",
@@ -14,11 +15,12 @@ function Menu() {
   );
 
   const onDelete = () => {
-    console.log(flashcards, listId);
-    delete flashcards[listId];
-    console.log(flashcards[listId]);
-    setFlashcards(flashcards);
-    navigate("/flashcards-memoriser");
+    const result = window.confirm("למחוק?");
+    if (result) {
+      delete flashcards[listId];
+      setFlashcards(flashcards);
+      navigate("/flashcards-memoriser");
+    }
   };
 
   const onEdit = () => {
@@ -41,7 +43,7 @@ function Menu() {
           הוספה
         </button>
       </div>
-      {match && (
+      {(match1 || match2) && (
         <div className="fontRow">
           <button className="editButton" onClick={() => onEdit()}>
             עריכה
@@ -58,6 +60,7 @@ function Menu() {
           >
             הקטן פונט
           </button>
+
           <button className="editButton" onClick={() => onDelete()}>
             מחיקה
           </button>

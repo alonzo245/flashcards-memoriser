@@ -4,6 +4,7 @@ import Flashcards from "./Flashcards";
 import FlashCardsForm from "./FlashCardsForm";
 import Menu from "./Menu";
 import FlashcardsList from "./FlashcardsList";
+import FlashcardsGame from "./FlashcardsGame";
 
 function App() {
   return (
@@ -11,12 +12,16 @@ function App() {
       <div>
         <Routes>
           <Route element={<Menu />}>
-            <Route
-              path="/flashcards-memoriser/:listId"
-              element={<Flashcards />}
-            />
             <Route path="/" element={<FlashcardsList />} />
             <Route path="/flashcards-memoriser" element={<FlashcardsList />} />
+            <Route
+              path="/flashcards-memoriser/list/:listId"
+              element={<Flashcards />}
+            />
+            <Route
+              path="/flashcards-memoriser/game/:listId"
+              element={<FlashcardsGame />}
+            />
             <Route
               path="/flashcards-memoriser/add"
               element={<FlashCardsForm edit={false} />}

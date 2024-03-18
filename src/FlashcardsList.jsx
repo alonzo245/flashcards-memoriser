@@ -7,9 +7,13 @@ function FlashcardsList() {
   const navigate = useNavigate();
   const [flashcards] = useLocalStorage("flashcards");
 
+  const handleClick = (e, id) => {
+    e.stopPropagation();
+    navigate(`/flashcards-memoriser/game/${id}`);
+  };
+
   const list = Object.keys(flashcards || {}).reverse() || {};
 
-  console.log("flashcards", flashcards);
   return !list?.length ? (
     <div style={{ width: "100%", textAlign: "center" }}>אין שמירות עדיין</div>
   ) : (
@@ -20,10 +24,18 @@ function FlashcardsList() {
             <div
               key={id}
               className="flashcardListItem"
-              onClick={() => navigate(`/flashcards-memoriser/${id}`)}
+              onClick={() => navigate(`/flashcards-memoriser/list/${id}`)}
             >
-              {flashcards[id].title ||
-                `${timestampToDDMMYY(flashcards?.[id]?.created)}`}
+              <span>
+                {flashcards[id].title ||
+                  `${timestampToDDMMYY(flashcards?.[id]?.created)}`}
+              </span>
+              <span
+                className="start-game-button"
+                onClick={(e) => handleClick(e, id)}
+              >
+                משחק זכרון
+              </span>
             </div>
           );
         })}

@@ -10,7 +10,6 @@ function Flashcards() {
   const [modal, setModal] = useState(null);
   const { listId } = useParams();
 
-  console.log(`flashcards?.[id]?.["list"]`, flashcards?.[listId]?.list, listId);
   return !Object.keys(flashcards?.[listId]?.list || {})?.length ? null : (
     <>
       <div className="flashcards">
