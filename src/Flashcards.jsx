@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 function Flashcards() {
   const [flashcards] = useLocalStorage("flashcards");
   const [flashcardsFontSize] = useLocalStorage("flashcardsFontSize", 20);
-  const [modal, setModal] = useState("");
+  const [modal, setModal] = useState(null);
   const { listId } = useParams();
 
   console.log(`flashcards?.[id]?.["list"]`, flashcards?.[listId]?.list, listId);
@@ -22,14 +22,14 @@ function Flashcards() {
                 !flashcardsFontSize ? null : { fontSize: flashcardsFontSize }
               }
               key={id}
-              onClick={() => setModal(flashcards[listId].list[id].text)}
+              onClick={() => setModal(flashcards[listId].list[id])}
             >
               {flashcards[listId]?.list[id].hint}
             </div>
           );
         })}
       </div>
-      <Modal show={modal} setShow={setModal} />
+      <Modal data={modal} setShow={setModal} />
     </>
   );
 }
