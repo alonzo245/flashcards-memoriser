@@ -15,15 +15,25 @@ function FlashcardsGame() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [shouldReset, setShouldReset] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [intervalId, setIntervalId] = useState(null);
-  const [autoStart, setAutoStart] = useState(false);
 
   const [modal, setModal] = useState(null);
 
-  const handleClick = () => {
-    if (flashcards?.[listId]?.list?.[currentIndex + 1]) {
-      setList([...list, currentIndex + 1]);
-      setCurrentIndex(currentIndex + 1);
+  const handleClick = (pickedItemsNum = 1) => {
+    const cards = [];
+    let index = 0;
+    console.log("flashcards?.[listId]?.list", flashcards?.[listId]?.list);
+    console.log("currentIndex", currentIndex);
+    for (var i = currentIndex; i < currentIndex + pickedItemsNum; i++) {
+      if (flashcards?.[listId]?.list?.[i + 1]) {
+        cards.push(i + 1);
+        index = i + 1;
+      }
+    }
+    console.log(cards?.length, cards);
+    console.log(index);
+    if (cards?.length > 0) {
+      setList([...list, ...cards]);
+      setCurrentIndex(index);
     } else {
       setShouldReset(true);
     }
@@ -78,26 +88,37 @@ function FlashcardsGame() {
         </div>
       </div>
       <button
-        onClick={shouldReset ? resetGame : handleClick}
+        onClick={shouldReset ? resetGame : () => handleClick(1)}
         className="button-game-next"
         style={{
           padding: "20px",
           opacity: shouldReset ? 1 : "1",
-          height: isScrolled ? "90vh" : "calc(90vh - 100px)",
+          height: isScrolled ? "90vh" : "calc(90vh - 180px)",
         }}
       >
         {shouldReset ? "איפוס" : " הבא"}
       </button>
       <button
-        onClick={() => {}}
-        className="button-game-next-auto"
+        onClick={shouldReset ? resetGame : () => handleClick(3)}
+        className="button-game-next-auto-x3"
         style={{
           padding: "20px",
           opacity: shouldReset ? 1 : "1",
           height: "80px",
         }}
       >
-        {autoStart ? "הפסק" : "התחל"}
+        X 3
+      </button>
+      <button
+        onClick={shouldReset ? resetGame : () => handleClick(3)}
+        className="button-game-next-auto-x5"
+        style={{
+          padding: "20px",
+          opacity: shouldReset ? 1 : "1",
+          height: "80px",
+        }}
+      >
+        X 5
       </button>
       <Modal data={modal} setShow={setModal} />
     </>
