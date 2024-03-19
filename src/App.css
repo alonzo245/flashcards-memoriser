@@ -101,7 +101,8 @@
   display: flex;
   height: 100px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 10px;
   margin-top: 10px;
   height: 40px;
 }
@@ -126,8 +127,9 @@
   color: #888;
   border: 0px;
   position: fixed;
-  bottom: 240px;
+  bottom: 0;
   right: 0;
+  height: 396px;
 }
 .button-game-next-auto-x3 {
   width: 80px;
@@ -141,8 +143,9 @@
   );
   color: #888;
   border: 0px;
+  border-bottom: 1px solid #333;
   position: fixed;
-  bottom: 120px;
+  top: 220px;
   right: 0;
 }
 .button-game-next-auto-x5 {
@@ -157,8 +160,9 @@
   );
   color: #888;
   border: 0px;
+  border-bottom: 1px solid #333;
   position: fixed;
-  bottom: 0px;
+
   right: 0;
 }
 .flashcards-game {

@@ -93,7 +93,6 @@ function FlashcardsGame() {
         style={{
           padding: "20px",
           opacity: shouldReset ? 1 : "1",
-          height: isScrolled ? "calc(90vh - 160px)" : "calc(90vh - 260px)",
         }}
       >
         {shouldReset ? "איפוס" : " הבא"}
@@ -115,7 +114,9 @@ function FlashcardsGame() {
         style={{
           padding: "20px",
           opacity: shouldReset ? 1 : "1",
-          height: "120px",
+          // height: "120px",
+          height: isScrolled ? "221px" : "120px",
+          top: isScrolled ? "0" : "100px",
         }}
       >
         X 5

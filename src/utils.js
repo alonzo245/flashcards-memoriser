@@ -4,7 +4,8 @@ export const getNextKey = (obj = null) => {
   const keys = Object.keys(obj);
   keys.sort((a, b) => a - b);
   const last = keys.at(-1);
-  return +last + 1;
+  console.log("last", last, keys, obj);
+  return (+last || 0) + 1;
 };
 
 export const timestampToDDMMYY = (timestamp = false) => {

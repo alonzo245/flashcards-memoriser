@@ -27,11 +27,9 @@ function Modal({ data, setShow }) {
       }}
     >
       <div>
-        <div className="modalFontRow">
+        <div className="modalFontRow" onClick={() => setShow(null)}>
+          <div style={{ color: "#888" }}>X</div>
           <h5>{data?.hint}</h5>
-          <div style={{ color: "#888" }} onClick={() => setShow(null)}>
-            X
-          </div>
         </div>
         <hr style={{ marginBottom: "10px", borderColor: "#333" }} />
         <div
