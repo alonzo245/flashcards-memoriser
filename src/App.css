@@ -129,7 +129,7 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  height: 396px;
+  height: calc(100vh - 340px);
 }
 .button-game-next-auto-x3 {
   width: 80px;
