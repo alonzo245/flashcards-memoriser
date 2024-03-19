@@ -93,7 +93,7 @@ function FlashcardsGame() {
         style={{
           padding: "20px",
           opacity: shouldReset ? 1 : "1",
-          height: isScrolled ? "90vh" : "calc(90vh - 180px)",
+          height: isScrolled ? "calc(90vh - 160px)" : "calc(90vh - 260px)",
         }}
       >
         {shouldReset ? "איפוס" : " הבא"}
@@ -104,18 +104,18 @@ function FlashcardsGame() {
         style={{
           padding: "20px",
           opacity: shouldReset ? 1 : "1",
-          height: "80px",
+          height: "120px",
         }}
       >
         X 3
       </button>
       <button
-        onClick={shouldReset ? resetGame : () => handleClick(3)}
+        onClick={shouldReset ? resetGame : () => handleClick(5)}
         className="button-game-next-auto-x5"
         style={{
           padding: "20px",
           opacity: shouldReset ? 1 : "1",
-          height: "80px",
+          height: "120px",
         }}
       >
         X 5
