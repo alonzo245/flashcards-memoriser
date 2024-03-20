@@ -5,6 +5,7 @@ import FlashCardsForm from "./FlashCardsForm";
 import Menu from "./Menu";
 import FlashcardsList from "./FlashcardsList";
 import FlashcardsGame from "./FlashcardsGame";
+import FlashcardsInterval from "./FlashcardsInterval";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
             <Route
               path="/flashcards-memoriser/game/:listId"
               element={<FlashcardsGame />}
+            />
+            <Route
+              path="/flashcards-memoriser/interval/:listId"
+              element={<FlashcardsInterval />}
             />
             <Route
               path="/flashcards-memoriser/add"

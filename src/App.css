@@ -170,13 +170,16 @@
   width: calc(100vw - 80px);
 }
 .start-game-button {
-  padding: 5px;
+  text-align: center;
+  padding: 2px;
   color: #6cabff;
   border: 0px;
   font-size: 17px;
   float: left;
   border-radius: 4px;
   border: 1px solid #6cabff;
+  width: 49%;
+  margin-top: 5px;
 }
 .flashcard-game {
   border: 1px solid #999;

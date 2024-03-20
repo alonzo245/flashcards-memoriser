@@ -11,6 +11,10 @@ function FlashcardsList() {
     e.stopPropagation();
     navigate(`/flashcards-memoriser/game/${id}`);
   };
+  const handleClickInterval = (e, id) => {
+    e.stopPropagation();
+    navigate(`/flashcards-memoriser/interval/${id}`);
+  };
 
   const list = Object.keys(flashcards || {}).reverse() || {};
 
@@ -30,12 +34,26 @@ function FlashcardsList() {
                 {flashcards[id].title ||
                   `${timestampToDDMMYY(flashcards?.[id]?.created)}`}
               </span>
-              <span
-                className="start-game-button"
-                onClick={(e) => handleClick(e, id)}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
               >
-                משחק זכרון
-              </span>
+                <span
+                  className="start-game-button"
+                  onClick={(e) => handleClick(e, id)}
+                >
+                  זכרון
+                </span>
+                <span
+                  className="start-game-button"
+                  onClick={(e) => handleClickInterval(e, id)}
+                >
+                  אינטרבל
+                </span>
+              </div>
             </div>
           );
         })}

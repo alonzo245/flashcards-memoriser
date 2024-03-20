@@ -7,6 +7,7 @@ function Menu() {
   const navigate = useNavigate();
   const match1 = useMatch("/flashcards-memoriser/list/:listId");
   const match2 = useMatch("/flashcards-memoriser/game/:listId");
+  const match3 = useMatch("/flashcards-memoriser/interval/:listId");
 
   const [flashcards, setFlashcards] = useLocalStorage("flashcards");
   const [flashcardsFontSize, setFlashcardsFontSize] = useLocalStorage(
@@ -17,6 +18,9 @@ function Menu() {
     "flashcardsGameFontSize",
     20
   );
+
+  const [flashcardsIntervalFontSize, setFlashcardsIntervalFontSize] =
+    useLocalStorage("flashcardsIntervalFontSize", 20);
 
   const onDelete = () => {
     const result = window.confirm("למחוק?");
@@ -47,28 +51,40 @@ function Menu() {
           הוספה
         </button>
       </div>
-      {(match1 || match2) && (
+      {(match1 || match2 || match3) && (
         <div className="fontRow">
           <button className="editButton" onClick={() => onEdit()}>
             עריכה
           </button>
           <button
             className="fontButton"
-            onClick={() =>
-              match1
-                ? setFlashcardsFontSize(flashcardsFontSize + 2)
-                : setFlashcardsGameFontSize(flashcardsGameFontSize + 2)
-            }
+            onClick={() => {
+              if (match1) {
+                setFlashcardsFontSize(flashcardsFontSize + 2);
+              }
+              if (match2) {
+                setFlashcardsGameFontSize(flashcardsGameFontSize + 2);
+              }
+              if (match3) {
+                setFlashcardsIntervalFontSize(flashcardsIntervalFontSize + 2);
+              }
+            }}
           >
             הגדל פונט
           </button>
           <button
             className="fontButton"
-            onClick={() =>
-              match1
-                ? setFlashcardsFontSize(flashcardsFontSize - 2)
-                : setFlashcardsGameFontSize(flashcardsGameFontSize - 2)
-            }
+            onClick={() => {
+              if (match1) {
+                setFlashcardsFontSize(flashcardsFontSize - 2);
+              }
+              if (match2) {
+                setFlashcardsGameFontSize(flashcardsGameFontSize - 2);
+              }
+              if (match3) {
+                setFlashcardsIntervalFontSize(flashcardsIntervalFontSize - 2);
+              }
+            }}
           >
             הקטן פונט
           </button>
