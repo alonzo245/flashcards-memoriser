@@ -39,11 +39,40 @@ function FlashCardsForm({ edit = false }) {
     navigate(`/flashcards-memoriser`);
   };
 
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    let updatedFlashCards = flashcards
+      ? JSON.parse(JSON.stringify(flashcards))
+      : {};
+
+    const paragraphs = textInputRef.current.value.split(/\n\s*\n/);
+
+    let newCards = {};
+    paragraphs.forEach((paragraph, id) => {
+      newCards[id] = {
+        hint: paragraph.split(/\s+/).slice(0, 2).join("\n\n"),
+        text: paragraph,
+      };
+    });
+
+    updatedFlashCards[listId] = {
+      title: titleInputRef.current.value || "",
+      list: newCards,
+      updated: Date.now(),
+    };
+
+    setFlashcards(updatedFlashCards);
+    titleInputRef.current.value = "";
+    textInputRef.current.value = "";
+    navigate(`/flashcards-memoriser`);
+  };
+
   useEffect(() => {
     if (edit) {
-      titleInputRef.current.value = `${
-        flashcards?.[listId]?.title
-      } - ${timestampToDDMMYY(Date.now())}`;
+      const title = flashcards?.[listId]?.title?.split(" - ");
+      titleInputRef.current.value = `${title?.[0] || ""} - ${timestampToDDMMYY(
+        Date.now()
+      )}`;
       let cards = Object.keys(flashcards?.[listId]?.list)
         .map((id) => flashcards?.[listId]?.list?.[id].text)
         .join("\n\n");
@@ -58,8 +87,8 @@ function FlashCardsForm({ edit = false }) {
   return (
     <>
       <div className="form">
-        <button type="submit" onClick={handleSubmit}>
-          אני רוצה לזכור!
+        <button type="submit" onClick={edit ? handleUpdate : handleSubmit}>
+          {edit ? "עדכן" : "אני רוצה לזכור!"}
         </button>
         <input ref={titleInputRef} placeholder="כותרת" />
         <textarea ref={textInputRef} placeholder="הדבק טקסט ..." />
