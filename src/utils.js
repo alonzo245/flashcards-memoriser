@@ -1,4 +1,4 @@
-export const getNextKey = (obj = null) => {
+export const generateNextKey = (obj = null) => {
   if (!obj) return 0;
 
   const keys = Object.keys(obj);

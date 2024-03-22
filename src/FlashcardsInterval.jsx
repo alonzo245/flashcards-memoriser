@@ -52,6 +52,10 @@ const FlashcardsInterval = () => {
     };
   }, [secondArray.length, pause, speed]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
       <div className="flashcards-game">

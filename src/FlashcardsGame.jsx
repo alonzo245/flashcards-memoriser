@@ -66,6 +66,10 @@ function FlashcardsGame() {
     };
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return !Object.keys(flashcards?.[listId]?.list || {})?.length ? null : (
     <>
       <div style={{ display: "flex", flexDirection: "row" }}>
