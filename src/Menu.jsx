@@ -9,6 +9,7 @@ function Menu() {
   const match2 = useMatch("/flashcards-memoriser/game/:listId");
   const match3 = useMatch("/flashcards-memoriser/interval/:listId");
 
+  const [expendCards, setSxpendCards] = useLocalStorage("expendCards");
   const [flashcards, setFlashcards] = useLocalStorage("flashcards");
   const [flashcardsFontSize, setFlashcardsFontSize] = useLocalStorage(
     "flashcardsFontSize",
@@ -35,6 +36,10 @@ function Menu() {
     navigate(`/flashcards-memoriser/edit/${listId}`);
   };
 
+  const onExpendCards = () => {
+    setSxpendCards(!expendCards);
+  };
+
   return (
     <>
       <div className="navRow">
@@ -53,9 +58,10 @@ function Menu() {
       </div>
       {(match1 || match2 || match3) && (
         <div className="fontRow">
-          <button className="editButton" onClick={() => onEdit()}>
-            עריכה
+          <button className="editButton" onClick={() => onExpendCards()}>
+            {expendCards ? "צמצם" : "הרחב"}
           </button>
+
           <button
             className="fontButton"
             onClick={() => {
@@ -88,7 +94,9 @@ function Menu() {
           >
             הקטן פונט
           </button>
-
+          <button className="editButton" onClick={() => onEdit()}>
+            עריכה
+          </button>
           <button className="editButton" onClick={() => onDelete()}>
             מחיקה
           </button>

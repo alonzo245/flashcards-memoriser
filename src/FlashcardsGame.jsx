@@ -8,6 +8,7 @@ function FlashcardsGame() {
   const { listId } = useParams();
   const containerRef = useRef(null);
 
+  const [expendCards] = useLocalStorage("expendCards");
   const [flashcards] = useLocalStorage("flashcards");
   const [flashcardsFontSize] = useLocalStorage("flashcardsGameFontSize", 20);
 
@@ -85,7 +86,18 @@ function FlashcardsGame() {
                 key={id}
                 onClick={() => setModal(flashcards[listId].list[id])}
               >
-                {flashcards[listId]?.list[id].hint}
+                {expendCards ? (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: (flashcards[listId]?.list[id]?.text || "")
+                        .split("\n")
+                        .filter((line) => line)
+                        .join("<br />"),
+                    }}
+                  />
+                ) : (
+                  flashcards[listId]?.list[id]?.hint
+                )}
               </span>
             );
           })}

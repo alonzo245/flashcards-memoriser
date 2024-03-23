@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 const FlashcardsInterval = () => {
   const { listId } = useParams();
 
+  const [expendCards] = useLocalStorage("expendCards");
   const [flashcards] = useLocalStorage("flashcards");
   const [flashcardsIntervalFontSize] = useLocalStorage(
     "flashcardsIntervalFontSize",
@@ -70,13 +71,25 @@ const FlashcardsInterval = () => {
               }
               key={id}
             >
-              {flashcards[listId]?.list[id].hint}
+              {expendCards ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: (flashcards[listId]?.list[id]?.text || "")
+                      .split("\n")
+                      .filter((line) => line)
+                      .join("<br />"),
+                  }}
+                />
+              ) : (
+                flashcards[listId]?.list[id]?.hint
+              )}
             </span>
           );
         })}
       </div>
       <div className="navRow">
         <button className="navButton" onClick={handlePause}>
+          {!pause && <div className="loader"></div>}
           {pause ? "המשך" : "עצירה"}
         </button>
         <button className="navButton" onClick={handleReset}>

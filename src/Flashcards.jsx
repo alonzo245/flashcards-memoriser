@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 function Flashcards() {
+  const [expendCards] = useLocalStorage("expendCards");
   const [flashcards] = useLocalStorage("flashcards");
   const [flashcardsFontSize] = useLocalStorage("flashcardsFontSize", 20);
   const [modal, setModal] = useState(null);
@@ -28,7 +29,18 @@ function Flashcards() {
               key={id}
               onClick={() => setModal(flashcards[listId].list[id])}
             >
-              {flashcards[listId]?.list[id].hint}
+              {expendCards ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: (flashcards[listId]?.list[id]?.text || "")
+                      .split("\n")
+                      .filter((line) => line)
+                      .join("<br />"),
+                  }}
+                />
+              ) : (
+                flashcards[listId]?.list[id]?.hint
+              )}
             </div>
           );
         })}
