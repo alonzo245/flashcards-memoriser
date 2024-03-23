@@ -13,6 +13,7 @@ function PrevNextNav({ nav }) {
     console.log(Number(listId) - 1);
     if (flashcards?.[Number(listId) - 1]) {
       navigate(`/flashcards-memoriser/${nav}/${Number(listId) - 1}`);
+      window.scrollTo(0, 0);
     }
   };
 
@@ -20,6 +21,7 @@ function PrevNextNav({ nav }) {
     console.log(Number(listId) + 1);
     if (flashcards?.[Number(listId) + 1]) {
       navigate(`/flashcards-memoriser/${nav}/${Number(listId) + 1}`);
+      window.scrollTo(0, 0);
     }
   };
 
