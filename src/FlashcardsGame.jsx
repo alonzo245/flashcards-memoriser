@@ -141,6 +141,7 @@ function FlashcardsGame() {
       >
         X 5
       </button>
+      <div style={{ marginBottom: "50px" }}></div>
       <Modal data={modal} setShow={setModal} />
     </>
   );

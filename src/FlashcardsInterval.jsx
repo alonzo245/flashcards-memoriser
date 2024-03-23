@@ -111,6 +111,7 @@ const FlashcardsInterval = () => {
           האט
         </button>
       </div>
+      <div style={{ marginBottom: "50px" }}></div>
     </div>
   );
 };

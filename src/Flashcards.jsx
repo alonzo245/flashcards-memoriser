@@ -47,6 +47,8 @@ function Flashcards() {
           );
         })}
       </div>
+      <PrevNextNav nav={"list"} />
+      <div style={{ marginBottom: "50px" }}></div>
       <Modal data={modal} setShow={setModal} />
     </>
   );
