@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/flashcards-memoriser/static/css/main.47c024b4.css",
-    "main.js": "/flashcards-memoriser/static/js/main.b3953fd6.js",
+    "main.css": "/flashcards-memoriser/static/css/main.d83f5541.css",
+    "main.js": "/flashcards-memoriser/static/js/main.c7b67bf2.js",
     "static/js/453.538a5505.chunk.js": "/flashcards-memoriser/static/js/453.538a5505.chunk.js",
     "index.html": "/flashcards-memoriser/index.html",
-    "main.47c024b4.css.map": "/flashcards-memoriser/static/css/main.47c024b4.css.map",
-    "main.b3953fd6.js.map": "/flashcards-memoriser/static/js/main.b3953fd6.js.map",
+    "main.d83f5541.css.map": "/flashcards-memoriser/static/css/main.d83f5541.css.map",
+    "main.c7b67bf2.js.map": "/flashcards-memoriser/static/js/main.c7b67bf2.js.map",
     "453.538a5505.chunk.js.map": "/flashcards-memoriser/static/js/453.538a5505.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.47c024b4.css",
-    "static/js/main.b3953fd6.js"
+    "static/css/main.d83f5541.css",
+    "static/js/main.c7b67bf2.js"
   ]
 }
