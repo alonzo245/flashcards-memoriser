@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Modal from "./Modal";
 import { useParams } from "react-router-dom";
+import PrevNextNav from "./PrevNextNav";
 
 function FlashcardsGame() {
   const { listId } = useParams();
@@ -103,6 +104,7 @@ function FlashcardsGame() {
               </span>
             );
           })}
+          <PrevNextNav nav={"game"} />
         </div>
       </div>
       <button

@@ -1,9 +1,9 @@
 import { useLocalStorage } from "@rehooks/local-storage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import "./App.css";
 import Modal from "./Modal";
-import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import PrevNextNav from "./PrevNextNav";
 
 function Flashcards() {
   const [expendCards] = useLocalStorage("expendCards");
@@ -11,24 +11,6 @@ function Flashcards() {
   const [flashcardsFontSize] = useLocalStorage("flashcardsFontSize", 20);
   const [modal, setModal] = useState(null);
   const { listId } = useParams();
-  const navigate = useNavigate();
-  const nextBlock = flashcards?.[Number(listId) + 1];
-  const prevBlock = flashcards?.[Number(listId) - 1];
-  console.log("prevBlock", prevBlock);
-
-  const handlePrev = () => {
-    console.log(Number(listId) - 1);
-    if (flashcards?.[Number(listId) - 1]) {
-      navigate(`/flashcards-memoriser/list/${Number(listId) - 1}`);
-    }
-  };
-
-  const handleNext = () => {
-    console.log(Number(listId) + 1);
-    if (flashcards?.[Number(listId) + 1]) {
-      navigate(`/flashcards-memoriser/list/${Number(listId) + 1}`);
-    }
-  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -64,20 +46,7 @@ function Flashcards() {
           );
         })}
       </div>
-      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-        {nextBlock && (
-          <button
-            className="nextBlockButton"
-            onClick={handleNext}
-          >{`הקודם - ${nextBlock?.title}`}</button>
-        )}
-        {prevBlock && (
-          <button
-            className="nextBlockButton"
-            onClick={handlePrev}
-          >{`הבא - ${prevBlock?.title}`}</button>
-        )}
-      </div>
+      <PrevNextNav nav={"list"} />
       <Modal data={modal} setShow={setModal} />
     </>
   );
