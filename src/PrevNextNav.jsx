@@ -31,13 +31,13 @@ function PrevNextNav({ nav }) {
         <button
           className="nextBlockButton"
           onClick={handlePrev}
-        >{`הבא - ${prevBlock?.title}`}</button>
+        >{`>> ${prevBlock?.title} >>`}</button>
       )}
       {nextBlock && (
         <button
           className="nextBlockButton"
           onClick={handleNext}
-        >{`הקודם - ${nextBlock?.title}`}</button>
+        >{`<< ${nextBlock?.title} <<`}</button>
       )}
     </div>
   );
