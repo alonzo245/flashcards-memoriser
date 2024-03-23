@@ -19,6 +19,7 @@ function Flashcards() {
   return !Object.keys(flashcards?.[listId]?.list || {})?.length ? null : (
     <>
       <h5 style={{ padding: "3px 10px" }}>{flashcards?.[listId]?.title}</h5>
+      <PrevNextNav nav={"list"} />
       <div className="flashcards">
         {Object.keys(flashcards?.[listId]?.list).map((id) => {
           return (
@@ -46,7 +47,6 @@ function Flashcards() {
           );
         })}
       </div>
-      <PrevNextNav nav={"list"} />
       <Modal data={modal} setShow={setModal} />
     </>
   );

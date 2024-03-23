@@ -43,7 +43,7 @@ function FlashcardsList() {
                 }}
               >
                 <span
-                  className="start-game-button"
+                  className="count-button"
                   onClick={(e) => handleClick(e, id)}
                 >
                   {Object.keys(flashcards[id].list || {}).length}

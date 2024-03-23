@@ -64,7 +64,7 @@
   height: 100px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   height: 40px;
 }
 .fontRow .fontButton {
@@ -94,9 +94,9 @@
 }
 .nextBlockButton {
   width: 48%;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  padding: 15px 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px 5px;
   background-color: #111;
   color: #888;
   border: 0px;
@@ -192,6 +192,20 @@
   float: left;
   border-radius: 4px;
   border: 1px solid #6cabff;
+  width: 49%;
+  margin-top: 5px;
+  display: table;
+  margin-inline: 5px;
+}
+.count-button {
+  text-align: center;
+  padding: 2px;
+  color: #616f81;
+  border: 0px;
+  font-size: 17px;
+  float: left;
+  border-radius: 4px;
+  border: 1px solid #616f81;
   width: 49%;
   margin-top: 5px;
   display: table;
