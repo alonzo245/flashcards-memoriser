@@ -23,7 +23,7 @@ function FlashcardsList() {
   ) : (
     <>
       <div className="flashcardsList">
-        {list.map((id) => {
+        {list.map((id, key) => {
           return (
             <div
               key={id}
@@ -31,6 +31,7 @@ function FlashcardsList() {
               onClick={() => navigate(`/flashcards-memoriser/list/${id}`)}
             >
               <span>
+                {`${key + 1}. `}
                 {flashcards[id].title ||
                   `${timestampToDDMMYY(flashcards?.[id]?.created)}`}
               </span>
@@ -41,6 +42,12 @@ function FlashcardsList() {
                   justifyContent: "space-between",
                 }}
               >
+                <span
+                  className="start-game-button"
+                  onClick={(e) => handleClick(e, id)}
+                >
+                  {Object.keys(flashcards[id].list || {}).length}
+                </span>
                 <span
                   className="start-game-button"
                   onClick={(e) => handleClick(e, id)}

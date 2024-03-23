@@ -76,6 +76,8 @@ function FlashcardsGame() {
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div style={{ width: "80px" }}></div>
         <div className="flashcards-game" ref={containerRef}>
+          <h5 style={{ padding: "3px 10px" }}>{flashcards?.[listId]?.title}</h5>
+
           {list.map((id) => {
             return (
               <span

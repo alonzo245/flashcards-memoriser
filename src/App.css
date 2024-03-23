@@ -21,16 +21,17 @@
 .flashcardsList {
   display: flex;
   flex-direction: column;
-  padding-top: 10px;
+  padding-top: 0px;
 }
 .flashcardListItem {
   border-bottom: 1px solid #999;
   color: #fff;
-  padding: 5px;
-  margin: 4px;
+  padding: 3px 0;
+  margin: 0px 8px;
   font-size: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .flashcard {
   border: 1px solid #999;
@@ -87,9 +88,19 @@
   height: 100px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   height: 40px;
 }
+.nextBlockButton {
+  width: 48%;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 15px 5px;
+  background-color: #111;
+  color: #888;
+  border: 0px;
+}
+
 .navRow .navButton {
   width: 49%;
 
