@@ -8,6 +8,7 @@ function Menu() {
   const match1 = useMatch("/flashcards-memoriser/list/:listId");
   const match2 = useMatch("/flashcards-memoriser/game/:listId");
   const match3 = useMatch("/flashcards-memoriser/interval/:listId");
+  const match4 = useMatch("/flashcards-memoriser/remember-game/:listId");
 
   const [expendCards, setSxpendCards] = useLocalStorage("expendCards");
   const [flashcards, setFlashcards] = useLocalStorage("flashcards");
@@ -56,7 +57,7 @@ function Menu() {
           הוספה
         </button>
       </div>
-      {(match1 || match2 || match3) && (
+      {(match1 || match2 || match3 || match4) && (
         <div className="fontRow">
           <button className="editButton" onClick={() => onExpendCards()}>
             {expendCards ? "צמצם" : "הרחב"}
@@ -74,6 +75,9 @@ function Menu() {
               if (match3) {
                 setFlashcardsIntervalFontSize(flashcardsIntervalFontSize + 2);
               }
+              if (match4) {
+                setFlashcardsIntervalFontSize(flashcardsIntervalFontSize + 2);
+              }
             }}
           >
             הגדל פונט
@@ -88,6 +92,9 @@ function Menu() {
                 setFlashcardsGameFontSize(flashcardsGameFontSize - 2);
               }
               if (match3) {
+                setFlashcardsIntervalFontSize(flashcardsIntervalFontSize - 2);
+              }
+              if (match4) {
                 setFlashcardsIntervalFontSize(flashcardsIntervalFontSize - 2);
               }
             }}

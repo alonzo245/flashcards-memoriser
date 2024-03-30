@@ -23,8 +23,10 @@ function FlashcardsRememberGame() {
   const { listId } = useParams();
 
   const [flashcards] = useLocalStorage("flashcards");
-  const [flashcardsFontSize] = useLocalStorage("flashcardsGameFontSize", 20);
-
+  const [flashcardsIntervalFontSize] = useLocalStorage(
+    "flashcardsIntervalFontSize",
+    20
+  );
   const [value, setValue] = useState(0.9);
 
   function replaceWordsWithUnderline(text, replacementRatio) {
@@ -68,15 +70,17 @@ function FlashcardsRememberGame() {
     <>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className="flashcards-remember-game" ref={containerRef}>
-          <h5 style={{ padding: "3px 10px" }}>{flashcards?.[listId]?.title}</h5>
           <PrevNextNav nav={"remember-game"} />
+          <h5 style={{ padding: "3px 10px" }}>{flashcards?.[listId]?.title}</h5>
           <RangeControlRemeberGame value={value} setValue={setValue} />
           {Object.keys(flashcards?.[listId]?.list).map((_, id) => {
             return (
               <div
                 className="flashcard-game"
                 style={
-                  !flashcardsFontSize ? null : { fontSize: flashcardsFontSize }
+                  !flashcardsIntervalFontSize
+                    ? null
+                    : { fontSize: flashcardsIntervalFontSize }
                 }
                 key={`id-${id}`}
               >
