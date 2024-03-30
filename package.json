@@ -19,6 +19,7 @@
   "devDependencies": {
     "gh-pages": "^3.2.3",
     "husky": "^9.0.11"
+
   },
   "scripts": {
     "start": "react-scripts start",
