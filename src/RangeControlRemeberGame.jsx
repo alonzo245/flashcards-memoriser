@@ -26,7 +26,7 @@ const RangeControlRemeberGame = ({ value, setValue }) => {
       <button className="nextBlockButton" onClick={handleDecrement}>
         גלה
       </button>
-      <div style={{ margin: "0 10px" }}>{value.toFixed(1) * 10}</div>
+      {/* <div style={{ margin: "0 10px" }}>{value.toFixed(1) * 10}</div> */}
       <button className="nextBlockButton" onClick={handleIncrement}>
         הסתר
       </button>
