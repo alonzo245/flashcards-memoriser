@@ -183,6 +183,10 @@
   flex-direction: column;
   width: calc(100vw - 80px);
 }
+.flashcards-remember-game {
+  flex-direction: column;
+  width: 100vw;
+}
 .start-game-button {
   text-align: center;
   padding: 2px;
@@ -242,4 +246,8 @@
   100% {
     opacity: 0;
   }
+}
+.word {
+  display: inline-block;
+  margin-left: 5px;
 }

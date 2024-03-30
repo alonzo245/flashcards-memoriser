@@ -16,6 +16,11 @@ function FlashcardsList() {
     navigate(`/flashcards-memoriser/interval/${id}`);
   };
 
+  const handleClickRemember = (e, id) => {
+    e.stopPropagation();
+    navigate(`/flashcards-memoriser/remember-game/${id}`);
+  };
+
   const list = Object.keys(flashcards || {}).reverse() || {};
 
   return !list?.length ? (
@@ -50,9 +55,15 @@ function FlashcardsList() {
                 </span>
                 <span
                   className="start-game-button"
-                  onClick={(e) => handleClick(e, id)}
+                  onClick={(e) => handleClickRemember(e, id)}
                 >
                   זכרון
+                </span>
+                <span
+                  className="start-game-button"
+                  onClick={(e) => handleClick(e, id)}
+                >
+                  הבא
                 </span>
                 <span
                   className="start-game-button"

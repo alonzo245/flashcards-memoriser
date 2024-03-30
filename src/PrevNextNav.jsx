@@ -27,17 +27,17 @@ function PrevNextNav({ nav }) {
 
   return !Object.keys(flashcards?.[listId]?.list || {})?.length ? null : (
     <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-      {prevBlock && (
-        <button
-          className="nextBlockButton"
-          onClick={handlePrev}
-        >{`>> ${prevBlock?.title} >>`}</button>
-      )}
       {nextBlock && (
         <button
           className="nextBlockButton"
           onClick={handleNext}
         >{`<< ${nextBlock?.title} <<`}</button>
+      )}
+      {prevBlock && (
+        <button
+          className="nextBlockButton"
+          onClick={handlePrev}
+        >{`>> ${prevBlock?.title} >>`}</button>
       )}
     </div>
   );
