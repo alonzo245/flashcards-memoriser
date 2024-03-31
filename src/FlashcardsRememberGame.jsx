@@ -7,13 +7,27 @@ import RangeControlRemeberGame from "./RangeControlRemeberGame";
 
 const Word = ({ text = "", forceShow = false }) => {
   const [show, setShow] = useState(() => forceShow);
+  const threeDots = text.split(/[…]/u).map((i) => (!i ? "…" : i));
+  const threeDots2 = threeDots[0]
+    .split(/[\.{3}]/u)
+    .map((i) => (!i ? "..." : i));
+  const comma = threeDots2[0].split(/[,]/u).map((i) => (!i ? "," : i));
+  const dot = comma[0].split(/[\.]/u).map((i) => (!i ? "." : i));
+  const colon = dot[0].split(/[:]/u).map((i) => (!i ? ":" : i));
 
+  console.log("threeDots", threeDots);
+  // console.log("dot", dot);
+  // console.log("comma", comma);
   if (text === "###NEW_LINE###") {
     return <br />;
   }
   return (
     <span className="word" onClick={() => !show && setShow(!show)}>
-      {show ? text : "_".repeat(text?.length)}
+      {show
+        ? text
+        : `${"_".repeat(colon[0]?.length)}${threeDots?.[1] || ""}${
+            comma?.[1] ? "," : ""
+          }${dot?.[1] || ""}${colon?.[1] || ""}`}
     </span>
   );
 };
@@ -37,6 +51,7 @@ function FlashcardsRememberGame() {
 
     const words = sentences.split(/\s+/).filter((i) => i);
     const wordsFormatted = [...words];
+
     const numWordsToReplace = Math.floor(words.length * replacementRatio);
 
     const indices = [];

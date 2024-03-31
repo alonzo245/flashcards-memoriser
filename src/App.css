@@ -268,7 +268,7 @@
 
 @media (min-width: 800px) {
   .content {
-    width: 80%;
+    width: calc(100vw - 316x);
   }
   .flashcardsList {
     width: 300px;
