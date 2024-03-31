@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@rehooks/local-storage";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./App.css";
 import PrevNextNav from "./PrevNextNav";
@@ -41,6 +41,7 @@ function FlashcardsRememberGame() {
     "flashcardsIntervalFontSize",
     20
   );
+
   const [value, setValue] = useState(0.9);
 
   function replaceWordsWithUnderline(text, replacementRatio) {
@@ -76,6 +77,29 @@ function FlashcardsRememberGame() {
     });
   }
 
+  const cards = useMemo(
+    () =>
+      Object.keys(flashcards?.[listId]?.list).map((_, id) => {
+        return (
+          <div
+            className="flashcard-game"
+            style={
+              !flashcardsIntervalFontSize
+                ? null
+                : { fontSize: flashcardsIntervalFontSize }
+            }
+            key={`id-${id}`}
+          >
+            {replaceWordsWithUnderline(
+              flashcards?.[listId]?.list?.[id]?.text,
+              value
+            )}
+          </div>
+        );
+      }),
+    [listId, value]
+  );
+
   useEffect(() => {
     window.scrollTo(0, 0);
     setValue(0.9);
@@ -89,26 +113,7 @@ function FlashcardsRememberGame() {
             {flashcards?.[listId]?.title}
           </h5>
 
-          <div className="cards-remember-game">
-            {Object.keys(flashcards?.[listId]?.list).map((_, id) => {
-              return (
-                <div
-                  className="flashcard-game"
-                  style={
-                    !flashcardsIntervalFontSize
-                      ? null
-                      : { fontSize: flashcardsIntervalFontSize }
-                  }
-                  key={`id-${id}`}
-                >
-                  {replaceWordsWithUnderline(
-                    flashcards?.[listId]?.list?.[id]?.text,
-                    value
-                  )}
-                </div>
-              );
-            })}
-          </div>
+          <div className="cards-remember-game">{cards}</div>
         </div>
       </div>
       <RangeControlRemeberGame value={value} setValue={setValue} />
