@@ -2,18 +2,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Flashcards from "./Flashcards";
 import FlashCardsForm from "./FlashCardsForm";
-import Menu from "./Menu";
-import FlashcardsList from "./FlashcardsList";
 import FlashcardsGame from "./FlashcardsGame";
 import FlashcardsInterval from "./FlashcardsInterval";
 import FlashcardsRememberGame from "./FlashcardsRememberGame";
+import Layout from "./Layout";
+import FlashcardsList from "./FlashcardsList";
 
 function App() {
   return (
     <BrowserRouter>
       <div>
         <Routes>
-          <Route element={<Menu />}>
+          <Route element={<Layout />}>
             <Route path="/" element={<FlashcardsList />} />
             <Route path="/flashcards-memoriser" element={<FlashcardsList />} />
             <Route

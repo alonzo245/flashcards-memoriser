@@ -70,29 +70,34 @@ function FlashcardsRememberGame() {
     <>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className="flashcards-remember-game" ref={containerRef}>
+          <h5 style={{ padding: "3px 10px", fontSize: "24px" }}>
+            {flashcards?.[listId]?.title}
+          </h5>
           <PrevNextNav nav={"remember-game"} />
-          <h5 style={{ padding: "3px 10px" }}>{flashcards?.[listId]?.title}</h5>
           <RangeControlRemeberGame value={value} setValue={setValue} />
-          {Object.keys(flashcards?.[listId]?.list).map((_, id) => {
-            return (
-              <div
-                className="flashcard-game"
-                style={
-                  !flashcardsIntervalFontSize
-                    ? null
-                    : { fontSize: flashcardsIntervalFontSize }
-                }
-                key={`id-${id}`}
-              >
-                {replaceWordsWithUnderline(
-                  flashcards?.[listId]?.list?.[id]?.text,
-                  value
-                )}
-              </div>
-            );
-          })}
+          <div className="cards-remember-game">
+            {Object.keys(flashcards?.[listId]?.list).map((_, id) => {
+              return (
+                <div
+                  className="flashcard-game"
+                  style={
+                    !flashcardsIntervalFontSize
+                      ? null
+                      : { fontSize: flashcardsIntervalFontSize }
+                  }
+                  key={`id-${id}`}
+                >
+                  {replaceWordsWithUnderline(
+                    flashcards?.[listId]?.list?.[id]?.text,
+                    value
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
+      <PrevNextNav nav={"remember-game"} />
     </>
   );
 }

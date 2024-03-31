@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@rehooks/local-storage";
-import { useNavigate, useParams, Outlet, useMatch } from "react-router-dom";
+import { useMatch, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
 
 function Menu() {
@@ -42,7 +42,7 @@ function Menu() {
   };
 
   return (
-    <>
+    <div className="header">
       <div className="navRow">
         <button
           className="navButton"
@@ -109,8 +109,7 @@ function Menu() {
           </button>
         </div>
       )}
-      <Outlet />
-    </>
+    </div>
   );
 }
 
