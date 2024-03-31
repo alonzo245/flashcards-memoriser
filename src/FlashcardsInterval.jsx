@@ -40,7 +40,7 @@ const FlashcardsInterval = () => {
           setSecondArray([...secondArray, firstArray[secondArray.length]]);
           containerRef.current.scrollIntoView({
             behavior: "smooth",
-            block: "end",
+            block: "start",
           });
         }, speed);
         setIntervalId(interval);
