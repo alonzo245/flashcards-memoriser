@@ -105,6 +105,16 @@
   border: 0px;
 }
 
+.nextBlockButton-2 {
+  width: 49%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px 5px;
+  background-color: #111;
+  color: #888;
+  border: 0px;
+}
+
 .navRow .navButton {
   width: 49%;
 

@@ -29,19 +29,19 @@ function PrevNextNav({ nav }) {
     <div style={{ display: "flex", justifyContent: "space-evenly" }}>
       {prevBlock ? (
         <button
-          className="nextBlockButton"
+          className="nextBlockButton-2"
           onClick={handlePrev}
         >{`>> ${prevBlock?.title} >>`}</button>
       ) : (
-        <button className="nextBlockButton"></button>
+        <button className="nextBlockButton-2"></button>
       )}
       {nextBlock ? (
         <button
-          className="nextBlockButton"
+          className="nextBlockButton-2"
           onClick={handleNext}
         >{`<< ${nextBlock?.title} <<`}</button>
       ) : (
-        <button className="nextBlockButton"></button>
+        <button className="nextBlockButton-2"></button>
       )}
     </div>
   );
