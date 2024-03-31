@@ -1,8 +1,12 @@
 import { useLocalStorage } from "@rehooks/local-storage";
 import { useMatch, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
+import { useScreenSize } from "./hooks/useScreenSize";
+import { mobileThreshold } from "./config/theme.constants";
 
 function Menu() {
+  const { width } = useScreenSize();
+
   const { listId } = useParams();
   const navigate = useNavigate();
   const match1 = useMatch("/flashcards-memoriser/list/:listId");
@@ -43,20 +47,22 @@ function Menu() {
 
   return (
     <div className="header">
-      <div className="navRow">
-        <button
-          className="navButton"
-          onClick={() => navigate("/flashcards-memoriser")}
-        >
-          רשימה
-        </button>
-        <button
-          className="navButton"
-          onClick={() => navigate("/flashcards-memoriser/add")}
-        >
-          הוספה
-        </button>
-      </div>
+      {width < mobileThreshold && (
+        <div className="navRow">
+          <button
+            className="navButton"
+            onClick={() => navigate("/flashcards-memoriser")}
+          >
+            רשימה
+          </button>
+          <button
+            className="navButton"
+            onClick={() => navigate("/flashcards-memoriser/add")}
+          >
+            הוספה
+          </button>
+        </div>
+      )}
       {(match1 || match2 || match3) && (
         <div className="fontRow">
           <button className="editButton" onClick={() => onExpendCards()}>

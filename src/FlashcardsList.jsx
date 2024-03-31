@@ -2,8 +2,12 @@ import { useLocalStorage } from "@rehooks/local-storage";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
 import { timestampToDDMMYY } from "./utils";
+import { useScreenSize } from "./hooks/useScreenSize";
+import { mobileThreshold } from "./config/theme.constants";
 
 function FlashcardsList() {
+  const { width } = useScreenSize();
+
   const navigate = useNavigate();
   const [flashcards] = useLocalStorage("flashcards");
 
@@ -28,6 +32,16 @@ function FlashcardsList() {
   ) : (
     <>
       <div className="flashcardsList">
+        {width > mobileThreshold && (
+          <div className="navRow">
+            <button
+              className="navAdd"
+              onClick={() => navigate("/flashcards-memoriser/add")}
+            >
+              הוספה
+            </button>
+          </div>
+        )}
         {list.map((id, key) => {
           return (
             <div

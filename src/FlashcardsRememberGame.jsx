@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import "./App.css";
 import PrevNextNav from "./PrevNextNav";
 import RangeControlRemeberGame from "./RangeControlRemeberGame";
+import { useScreenSize } from "./hooks/useScreenSize";
+import { mobileThreshold } from "./config/theme.constants";
 
 const Word = ({ text = "", forceShow = false }) => {
   const [show, setShow] = useState(() => forceShow);
@@ -32,7 +34,13 @@ const Word = ({ text = "", forceShow = false }) => {
   );
 };
 
+/**
+ * FlashcardsRememberGame
+ * @returns
+ */
 function FlashcardsRememberGame() {
+  const { width } = useScreenSize();
+
   const containerRef = useRef(null);
   const { listId } = useParams();
 
@@ -101,10 +109,12 @@ function FlashcardsRememberGame() {
     <>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className="flashcards-remember-game" ref={containerRef}>
+          <RangeControlRemeberGame value={value} setValue={setValue} />
           <h5 style={{ padding: "3px 10px", fontSize: "24px" }}>
             {flashcards?.[listId]?.title}
           </h5>
-          <RangeControlRemeberGame value={value} setValue={setValue} />
+          {width > mobileThreshold && <PrevNextNav nav={"remember-game"} />}
+
           <div
             className="cards-remember-game"
             style={
