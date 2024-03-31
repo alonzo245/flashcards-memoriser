@@ -57,7 +57,7 @@ function Menu() {
           הוספה
         </button>
       </div>
-      {(match1 || match2 || match3 || match4) && (
+      {(match1 || match2 || match3) && (
         <div className="fontRow">
           <button className="editButton" onClick={() => onExpendCards()}>
             {expendCards ? "צמצם" : "הרחב"}
@@ -75,9 +75,9 @@ function Menu() {
               if (match3) {
                 setFlashcardsIntervalFontSize(flashcardsIntervalFontSize + 2);
               }
-              if (match4) {
-                setFlashcardsIntervalFontSize(flashcardsIntervalFontSize + 2);
-              }
+              // if (match4) {
+              //   setFlashcardsIntervalFontSize(flashcardsIntervalFontSize + 2);
+              // }
             }}
           >
             הגדל פונט
@@ -94,9 +94,9 @@ function Menu() {
               if (match3) {
                 setFlashcardsIntervalFontSize(flashcardsIntervalFontSize - 2);
               }
-              if (match4) {
-                setFlashcardsIntervalFontSize(flashcardsIntervalFontSize - 2);
-              }
+              // if (match4) {
+              //   setFlashcardsIntervalFontSize(flashcardsIntervalFontSize - 2);
+              // }
             }}
           >
             הקטן פונט

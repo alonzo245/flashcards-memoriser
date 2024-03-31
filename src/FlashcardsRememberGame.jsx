@@ -15,7 +15,7 @@ const Word = ({ text = "", forceShow = false }) => {
   const dot = comma[0].split(/[\.]/u).map((i) => (!i ? "." : i));
   const colon = dot[0].split(/[:]/u).map((i) => (!i ? ":" : i));
 
-  console.log("threeDots", threeDots);
+  // console.log("threeDots", threeDots);
   // console.log("dot", dot);
   // console.log("comma", comma);
   if (text === "###NEW_LINE###") {
@@ -37,8 +37,8 @@ function FlashcardsRememberGame() {
   const { listId } = useParams();
 
   const [flashcards] = useLocalStorage("flashcards");
-  const [flashcardsIntervalFontSize] = useLocalStorage(
-    "flashcardsIntervalFontSize",
+  const [flashcardsRememberFontSize] = useLocalStorage(
+    "flashcardsRememberFontSize",
     20
   );
 
@@ -81,15 +81,7 @@ function FlashcardsRememberGame() {
     () =>
       Object.keys(flashcards?.[listId]?.list).map((_, id) => {
         return (
-          <div
-            className="flashcard-game"
-            style={
-              !flashcardsIntervalFontSize
-                ? null
-                : { fontSize: flashcardsIntervalFontSize }
-            }
-            key={`id-${id}`}
-          >
+          <div className="flashcard-game-remember" key={`id-${id}`}>
             {replaceWordsWithUnderline(
               flashcards?.[listId]?.list?.[id]?.text,
               value
@@ -112,8 +104,17 @@ function FlashcardsRememberGame() {
           <h5 style={{ padding: "3px 10px", fontSize: "24px" }}>
             {flashcards?.[listId]?.title}
           </h5>
-
-          <div className="cards-remember-game">{cards}</div>
+          <RangeControlRemeberGame value={value} setValue={setValue} />
+          <div
+            className="cards-remember-game"
+            style={
+              !flashcardsRememberFontSize
+                ? null
+                : { fontSize: flashcardsRememberFontSize }
+            }
+          >
+            {cards}
+          </div>
         </div>
       </div>
       <RangeControlRemeberGame value={value} setValue={setValue} />
