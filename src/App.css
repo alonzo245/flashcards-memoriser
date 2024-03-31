@@ -274,12 +274,10 @@
   .flashcardsList {
     width: 300px;
   }
-  .flashcard-game {
-    /* width: 450px;*/
-  }
-  .flashcard-game {
+
+  /* .flashcard-game {
     width: 100%;
-  }
+  } */
   .flashcards-remember-game {
     width: calc(100vw - 300px);
   }

@@ -7,15 +7,25 @@ import FlashcardsInterval from "./FlashcardsInterval";
 import FlashcardsRememberGame from "./FlashcardsRememberGame";
 import Layout from "./Layout";
 import FlashcardsList from "./FlashcardsList";
+import { useScreenSize } from "./hooks/useScreenSize";
+import { mobileThreshold } from "./config/theme.constants";
 
 function App() {
+  const { width } = useScreenSize();
+
   return (
     <BrowserRouter>
       <div>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" element={<FlashcardsList />} />
-            <Route path="/flashcards-memoriser" element={<FlashcardsList />} />
+            <Route
+              path="/"
+              element={width < mobileThreshold ? <FlashcardsList /> : null}
+            />
+            <Route
+              path="/flashcards-memoriser"
+              element={width < mobileThreshold ? <FlashcardsList /> : null}
+            />
             <Route
               path="/flashcards-memoriser/list/:listId"
               element={<Flashcards />}

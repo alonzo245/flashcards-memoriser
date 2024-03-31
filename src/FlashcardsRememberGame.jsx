@@ -88,8 +88,7 @@ function FlashcardsRememberGame() {
           <h5 style={{ padding: "3px 10px", fontSize: "24px" }}>
             {flashcards?.[listId]?.title}
           </h5>
-          <PrevNextNav nav={"remember-game"} />
-          <RangeControlRemeberGame value={value} setValue={setValue} />
+
           <div className="cards-remember-game">
             {Object.keys(flashcards?.[listId]?.list).map((_, id) => {
               return (
@@ -112,6 +111,7 @@ function FlashcardsRememberGame() {
           </div>
         </div>
       </div>
+      <RangeControlRemeberGame value={value} setValue={setValue} />
       <PrevNextNav nav={"remember-game"} />
     </>
   );
