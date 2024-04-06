@@ -294,6 +294,46 @@
   flex-wrap: wrap;
 }
 
+.tele {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  width: 100vw;
+}
+.flashcard-tele {
+  border: 1px solid #999;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 4px;
+  font-size: 60px;
+}
+
+.flashcard-tele-next {
+  border: 1px solid #424242;
+  color: #616161;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 4px;
+  font-size: 60px;
+}
+.flashcards-tele {
+  /* display: flex;
+  flex-wrap: wrap;
+  padding-top: 10px; */
+}
+.progress-bar-container {
+  width: 100vw;
+  height: 20px;
+}
+
+.progress-bar {
+  background-color: red;
+  height: 20px;
+}
+
 @media (min-width: 800px) {
   .content {
     width: calc(100vw - 316px);

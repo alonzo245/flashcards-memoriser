@@ -4,6 +4,9 @@
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: none;
+}
 body {
   margin: 0;
   background-color: #000;
@@ -11,6 +14,7 @@ body {
   direction: rtl;
   text-align: right;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
 }
 
 .main {

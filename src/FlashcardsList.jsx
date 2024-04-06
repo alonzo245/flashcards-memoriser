@@ -1,12 +1,16 @@
 import { useLocalStorage } from "@rehooks/local-storage";
-import { useNavigate } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import "./App.css";
-import { timestampToDDMMYY } from "./utils";
-import { useScreenSize } from "./hooks/useScreenSize";
+
 import { mobileThreshold } from "./config/theme.constants";
+import { useScreenSize } from "./hooks/useScreenSize";
+import { timestampToDDMMYY } from "./utils";
 
 function FlashcardsList() {
   const { width } = useScreenSize();
+  const matchTeleprompter = useMatch(
+    "/flashcards-memoriser/teleprompter/:listId"
+  );
 
   const navigate = useNavigate();
   const [flashcards] = useLocalStorage("flashcards");
@@ -25,14 +29,23 @@ function FlashcardsList() {
     navigate(`/flashcards-memoriser/remember-game/${id}`);
   };
 
+  const handleClickTeleprompter = (e, id) => {
+    e.stopPropagation();
+    navigate(`/flashcards-memoriser/teleprompter/${id}`);
+  };
+
   const list = Object.keys(flashcards || {}).reverse() || {};
+
+  // if (!matchTeleprompter) {
+  //   return null;
+  // }
 
   return !list?.length ? (
     <div style={{ width: "100%", textAlign: "center" }}>אין שמירות עדיין</div>
   ) : (
     <>
       <div className="flashcardsList">
-        {width > mobileThreshold && (
+        {width > mobileThreshold && !matchTeleprompter && (
           <div className="navRow">
             <button
               className="navAdd"
@@ -47,45 +60,57 @@ function FlashcardsList() {
             <div
               key={id}
               className="flashcardListItem"
-              onClick={() => navigate(`/flashcards-memoriser/list/${id}`)}
+              onClick={() =>
+                matchTeleprompter
+                  ? false
+                  : navigate(`/flashcards-memoriser/list/${id}`)
+              }
             >
               <span>
                 {`${key + 1}. `}
                 {flashcards[id].title ||
                   `${timestampToDDMMYY(flashcards?.[id]?.created)}`}
               </span>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <span
-                  className="count-button"
-                  onClick={(e) => handleClick(e, id)}
+              {!matchTeleprompter && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
                 >
-                  {Object.keys(flashcards[id].list || {}).length}
-                </span>
-                <span
-                  className="start-game-button"
-                  onClick={(e) => handleClickRemember(e, id)}
-                >
-                  זכרון
-                </span>
-                <span
-                  className="start-game-button"
-                  onClick={(e) => handleClick(e, id)}
-                >
-                  הבא
-                </span>
-                <span
-                  className="start-game-button"
-                  onClick={(e) => handleClickInterval(e, id)}
-                >
-                  אינטרבל
-                </span>
-              </div>
+                  <span
+                    className="count-button"
+                    onClick={(e) => handleClick(e, id)}
+                  >
+                    {Object.keys(flashcards[id].list || {}).length}
+                  </span>
+                  <span
+                    className="start-game-button"
+                    onClick={(e) => handleClickRemember(e, id)}
+                  >
+                    זכרון
+                  </span>
+                  <span
+                    className="start-game-button"
+                    onClick={(e) => handleClick(e, id)}
+                  >
+                    הבא
+                  </span>
+                  <span
+                    className="start-game-button"
+                    onClick={(e) => handleClickInterval(e, id)}
+                  >
+                    אינטרבל
+                  </span>
+                  <span
+                    className="start-game-button"
+                    onClick={(e) => handleClickTeleprompter(e, id)}
+                  >
+                    T
+                  </span>
+                </div>
+              )}
             </div>
           );
         })}

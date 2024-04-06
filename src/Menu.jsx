@@ -13,6 +13,9 @@ function Menu() {
   const match2 = useMatch("/flashcards-memoriser/game/:listId");
   const match3 = useMatch("/flashcards-memoriser/interval/:listId");
   const match4 = useMatch("/flashcards-memoriser/remember-game/:listId");
+  const matchTeleprompter = useMatch(
+    "/flashcards-memoriser/teleprompter/:listId"
+  );
 
   const [expendCards, setSxpendCards] = useLocalStorage("expendCards");
   const [flashcards, setFlashcards] = useLocalStorage("flashcards");
