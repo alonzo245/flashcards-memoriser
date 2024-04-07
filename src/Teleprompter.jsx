@@ -27,6 +27,66 @@ function Teleprompter() {
 
   const navigate = useNavigate();
 
+  const handleKeyDown = (event, allow = false) => {
+    event.preventDefault();
+
+    if ([13, 34, 37, 32, 40].includes(event.keyCode) || allow) {
+      console.log("pageDown");
+      //pageDown
+      setKeyPressed(!keyPressed);
+      setIsPageDownPressed(!isPageDownPressed);
+
+      console.log("position", position);
+
+      if (
+        Object.keys(flashcards?.[listId]?.list || {})?.length >
+        position + 1
+      ) {
+        setPosition(position + 1);
+      } else {
+        setPosition(0);
+        // const last = Object.keys(flashcards || {})?.at(-1);
+        // console.log("last", last);
+        navigate(`/flashcards-memoriser/teleprompter/${+listId - 1}`);
+      }
+    }
+  };
+
+  const handleKeyUp = (event, allow = false) => {
+    event.preventDefault();
+    if ([33, 39, 38].includes(event.keyCode) || allow) {
+      //pageUp
+      console.log("pageUp");
+
+      // navigate(`/flashcards-memoriser/teleprompter/${+listId - 1}`);
+
+      console.log("position", position);
+      console.log(
+        "Object.keys(flashcards?.[+listId + 1]?.list || {})?.length > 0",
+        Object.keys(flashcards?.[+listId + 1]?.list || {})?.length > 0
+      );
+      if (position === 0) {
+        console.log("ddd", flashcards?.[+listId + 1]?.list);
+
+        if (Object.keys(flashcards?.[+listId + 1]?.list || {})?.length > 0) {
+          console.log(`/flashcards-memoriser/teleprompter/${+listId + 1}`);
+          navigate(`/flashcards-memoriser/teleprompter/${+listId + 1}`);
+        }
+        return;
+      }
+
+      if (Object.keys(flashcards?.[listId]?.list || {})?.length > 0) {
+        setPosition(position - 1);
+      } else {
+        setPosition(0);
+        // const last = Object.keys(flashcards || {})?.at(-1);
+        // console.log("last", last);
+        navigate(`/flashcards-memoriser/teleprompter/${+listId - 1}`);
+      }
+      setKeyPressed(!keyPressed);
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     setPosition(0);
@@ -40,64 +100,6 @@ function Teleprompter() {
       navigate(`/flashcards-memoriser/teleprompter/${last}`);
       return;
     }
-
-    const handleKeyDown = (event) => {
-      if (event.keyCode === 34) {
-        console.log("pageDown");
-        //pageDown
-        event.preventDefault();
-        setKeyPressed(!keyPressed);
-        setIsPageDownPressed(!isPageDownPressed);
-
-        console.log("position", position);
-
-        if (
-          Object.keys(flashcards?.[listId]?.list || {})?.length >
-          position + 1
-        ) {
-          setPosition(position + 1);
-        } else {
-          setPosition(0);
-          // const last = Object.keys(flashcards || {})?.at(-1);
-          // console.log("last", last);
-          navigate(`/flashcards-memoriser/teleprompter/${+listId - 1}`);
-        }
-      }
-    };
-
-    const handleKeyUp = (event) => {
-      if (event.keyCode === 33) {
-        //pageUp
-        console.log("pageUp");
-        event.preventDefault();
-        // navigate(`/flashcards-memoriser/teleprompter/${+listId - 1}`);
-
-        console.log("position", position);
-        console.log(
-          "Object.keys(flashcards?.[+listId + 1]?.list || {})?.length > 0",
-          Object.keys(flashcards?.[+listId + 1]?.list || {})?.length > 0
-        );
-        if (position === 0) {
-          console.log("ddd", flashcards?.[+listId + 1]?.list);
-
-          if (Object.keys(flashcards?.[+listId + 1]?.list || {})?.length > 0) {
-            console.log(`/flashcards-memoriser/teleprompter/${+listId + 1}`);
-            navigate(`/flashcards-memoriser/teleprompter/${+listId + 1}`);
-          }
-          return;
-        }
-
-        if (Object.keys(flashcards?.[listId]?.list || {})?.length > 0) {
-          setPosition(position - 1);
-        } else {
-          setPosition(0);
-          // const last = Object.keys(flashcards || {})?.at(-1);
-          // console.log("last", last);
-          navigate(`/flashcards-memoriser/teleprompter/${+listId - 1}`);
-        }
-        setKeyPressed(!keyPressed);
-      }
-    };
 
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
@@ -118,7 +120,11 @@ function Teleprompter() {
       <h5 style={{ padding: "0px 10px", fontSize: "42px" }}>
         {flashcards?.[listId]?.title}
       </h5>
-      <div className="flashcards-tele">
+      <div
+        className="flashcards-tele"
+        onClick={(e) => handleKeyDown(e, true)}
+        onContextMenu={(e) => handleKeyUp(e, true)}
+      >
         {flashcards[listId]?.list[position]?.text && (
           <div
             className="flashcard-tele"
