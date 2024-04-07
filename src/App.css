@@ -303,16 +303,17 @@
   width: 100vw;
 }
 .flashcard-tele {
-  border: 1px solid #999;
+  /* border: 1px solid #999; */
   color: #fff;
-  padding: 10px;
+  padding: 5px;
   border-radius: 4px;
-  margin: 4px;
+  /* margin: 4px; */
   font-size: 60px;
+  color: rgb(219, 219, 0);
 }
 
 .flashcard-tele-next {
-  border: 1px solid #424242;
+  /* border: 1px solid #424242; */
   color: #616161;
   padding: 10px;
   border-radius: 4px;
@@ -330,7 +331,7 @@
 }
 
 .progress-bar {
-  background-color: red;
+  background-color: rgb(127, 0, 0);
   height: 20px;
 }
 
