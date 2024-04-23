@@ -50,7 +50,7 @@ function Menu() {
 
   return (
     <div className="header">
-      {width < mobileThreshold && (
+      {width < mobileThreshold && !matchTeleprompter && (
         <div className="navRow">
           <button
             className="navButton"

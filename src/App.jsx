@@ -25,7 +25,7 @@ function App() {
             />
             <Route
               path="/flashcards-memoriser/teleprompter/:listId"
-              element={width > mobileThreshold ? <Teleprompter /> : null}
+              element={<Teleprompter />}
             />
             <Route
               path="/flashcards-memoriser"

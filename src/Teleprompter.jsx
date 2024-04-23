@@ -2,6 +2,8 @@ import { useLocalStorage } from "@rehooks/local-storage";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./App.css";
+import { useScreenSize } from "./hooks/useScreenSize";
+import { mobileThreshold } from "./config/theme.constants";
 
 const ProgressBar = ({ array, currentItem }) => {
   const progress = ((currentItem + 1) / array.length) * 100; // Calculate progress percentage
@@ -14,7 +16,64 @@ const ProgressBar = ({ array, currentItem }) => {
   );
 };
 
+const FontRange = ({ value, setValue }) => {
+  const [flashcardsRememberFontSize, setFlashcardsRememberFontSize] =
+    useLocalStorage("flashcardsTeleprompterFontSize", 50);
+
+  const handleIncrement = () => {
+    if (value < 1) {
+      setValue && setValue(value + 0.1);
+      console.log("value", value + 0.1);
+    }
+  };
+
+  const handleDecrement = () => {
+    if (value.toFixed(1) > 0.1) {
+      setValue && setValue(value - 0.1);
+      console.log("value", value - 0.1);
+    }
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        opacity: "0.5",
+      }}
+    >
+      <button
+        className="nextBlockButton"
+        onClick={() => {
+          document.location.href = "/flashcards-memoriser";
+        }}
+      >
+        ראשי
+      </button>
+      <button
+        className="nextBlockButton"
+        onClick={() => {
+          setFlashcardsRememberFontSize(flashcardsRememberFontSize + 2);
+        }}
+      >
+        הגדל פונט
+      </button>
+      <button
+        className="nextBlockButton"
+        onClick={() => {
+          setFlashcardsRememberFontSize(flashcardsRememberFontSize - 2);
+        }}
+      >
+        הקטן פונט
+      </button>
+    </div>
+  );
+};
+
 function Teleprompter() {
+  const { width } = useScreenSize();
+
   const [flashcards] = useLocalStorage("flashcards");
   const [flashcardsTeleprompterFontSize] = useLocalStorage(
     "flashcardsTeleprompterFontSize",
@@ -111,13 +170,28 @@ function Teleprompter() {
 
   return !Object.keys(flashcards?.[listId]?.list || {})?.length ? null : (
     <div tabIndex={0} className="tele">
+      <div
+        style={{
+          position: "fixed",
+          zIndex: 1000,
+          bottom: "20px",
+          right: "20px",
+        }}
+      >
+        <FontRange value={flashcardsTeleprompterFontSize} />
+      </div>
       <ProgressBar
         key={listId}
         array={Object.keys(flashcards?.[listId]?.list || {})}
         currentItem={+position}
       />
       {/* position: {position} */}
-      <h5 style={{ padding: "0px 10px", fontSize: "42px" }}>
+      <h5
+        style={{
+          padding: "0px 10px",
+          fontSize: width < mobileThreshold ? "22px" : "42px",
+        }}
+      >
         {flashcards?.[listId]?.title}
       </h5>
       <div
