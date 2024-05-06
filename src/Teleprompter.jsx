@@ -5,13 +5,13 @@ import "./App.css";
 import { useScreenSize } from "./hooks/useScreenSize";
 import { mobileThreshold } from "./config/theme.constants";
 
-const ProgressBar = ({ array, currentItem }) => {
+const ProgressBar = ({ array, currentItem, children }) => {
   const progress = ((currentItem + 1) / array.length) * 100; // Calculate progress percentage
 
   return (
     <div className="progress-bar-container">
-      <div className="progress-bar" style={{ width: `${progress}%` }}></div>{" "}
-      {/* {currentItem} */}
+      <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+      <div className="title">{children && children}</div>
     </div>
   );
 };
@@ -169,7 +169,7 @@ function Teleprompter() {
   }, [keyPressed, isPageDownPressed, position, listId]);
 
   return !Object.keys(flashcards?.[listId]?.list || {})?.length ? null : (
-    <div tabIndex={0} className="tele">
+    <>
       <div
         style={{
           position: "fixed",
@@ -180,84 +180,94 @@ function Teleprompter() {
       >
         <FontRange value={flashcardsTeleprompterFontSize} />
       </div>
-      <ProgressBar
-        key={listId}
-        array={Object.keys(flashcards?.[listId]?.list || {})}
-        currentItem={+position}
-      />
-      {/* position: {position} */}
-      <h5
-        style={{
-          padding: "0px 10px",
-          fontSize: width < mobileThreshold ? "22px" : "42px",
-        }}
-      >
-        {flashcards?.[listId]?.title}
-      </h5>
+
       <div
-        className="flashcards-tele"
+        tabIndex={0}
+        className="tele"
         onClick={(e) => handleKeyDown(e, true)}
         onContextMenu={(e) => handleKeyUp(e, true)}
       >
-        {flashcards[listId]?.list[position]?.text && (
-          <div
-            className="flashcard-tele"
-            style={
-              !flashcardsTeleprompterFontSize
-                ? null
-                : { fontSize: flashcardsTeleprompterFontSize }
-            }
+        <ProgressBar
+          key={listId}
+          array={Object.keys(flashcards?.[listId]?.list || {})}
+          currentItem={+position}
+        >
+          <h5
+            style={{
+              padding: "0px 10px",
+              fontSize: width < mobileThreshold ? "22px" : "42px",
+            }}
           >
+            {flashcards?.[listId]?.title}
+          </h5>
+        </ProgressBar>
+        {/* position: {position} */}
+
+        <div
+          className="flashcards-tele"
+          // onClick={(e) => handleKeyDown(e, true)}
+          // onContextMenu={(e) => handleKeyUp(e, true)}
+        >
+          {flashcards[listId]?.list[position]?.text && (
             <div
-              dangerouslySetInnerHTML={{
-                __html: (flashcards[listId]?.list[position]?.text || "")
-                  .split("\n")
-                  .filter((line) => line)
-                  .join("<br />"),
-              }}
-            />
-          </div>
-        )}{" "}
-        {flashcards[listId]?.list[position + 1]?.text && (
-          <div
-            className="flashcard-tele-next"
-            style={
-              !flashcardsTeleprompterFontSize
-                ? null
-                : { fontSize: flashcardsTeleprompterFontSize - 20 }
-            }
-          >
+              className="flashcard-tele"
+              style={
+                !flashcardsTeleprompterFontSize
+                  ? null
+                  : { fontSize: flashcardsTeleprompterFontSize }
+              }
+            >
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: (flashcards[listId]?.list[position]?.text || "")
+                    .split("\n")
+                    .filter((line) => line)
+                    .join("<br />"),
+                }}
+              />
+            </div>
+          )}{" "}
+          {/* {flashcards[listId]?.list[position + 1]?.text && (
             <div
-              dangerouslySetInnerHTML={{
-                __html: (flashcards[listId]?.list[position + 1]?.text || "")
-                  .split("\n")
-                  .filter((line) => line)
-                  .join("<br />"),
-              }}
-            />
-          </div>
-        )}{" "}
-        {flashcards[listId]?.list[position + 2]?.text && (
-          <div
-            className="flashcard-tele-next"
-            style={
-              !flashcardsTeleprompterFontSize
-                ? null
-                : { fontSize: flashcardsTeleprompterFontSize - 20 }
-            }
-          >
+              className="flashcard-tele-next"
+              style={
+                !flashcardsTeleprompterFontSize
+                  ? null
+                  : { fontSize: flashcardsTeleprompterFontSize - 20 }
+              }
+            >
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: (flashcards[listId]?.list[position + 1]?.text || "")
+                    .split("\n")
+                    .filter((line) => line)
+                    .join("<br />"),
+                }}
+              />
+            </div>
+          )}{" "}
+          {flashcards[listId]?.list[position + 2]?.text && (
             <div
-              dangerouslySetInnerHTML={{
-                __html: (flashcards[listId]?.list[position + 2]?.text || "")
-                  .split("\n")
-                  .filter((line) => line)
-                  .join("<br />"),
-              }}
-            />
-          </div>
-        )}
+              className="flashcard-tele-next"
+              style={
+                !flashcardsTeleprompterFontSize
+                  ? null
+                  : { fontSize: flashcardsTeleprompterFontSize - 20 }
+              }
+            >
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: (flashcards[listId]?.list[position + 2]?.text || "")
+                    .split("\n")
+                    .filter((line) => line)
+                    .join("<br />"),
+                }}
+              />
+            </div>
+          )} */}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -301,6 +301,7 @@
   flex-direction: column;
   text-align: center;
   width: 100vw;
+  height: 100vh;
 }
 .flashcard-tele {
   /* border: 1px solid #999; */
@@ -327,12 +328,21 @@
 }
 .progress-bar-container {
   width: 100vw;
-  height: 20px;
+  height: 10px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.progress-bar-container .title {
+  position: absolute;
+  transform: translate(-50%, -9%);
+  left: 50%;
+  top: 0px;
 }
 
 .progress-bar {
   background-color: rgb(127, 0, 0);
-  height: 20px;
+  height: 10px;
 }
 
 @media (min-width: 800px) {
