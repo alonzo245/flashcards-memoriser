@@ -341,11 +341,18 @@
 }
 
 .progress-bar {
-  background-color: rgb(127, 0, 0);
-  height: 10px;
+  background-color: rgb(77, 0, 0);
+  height: 20px;
 }
 
 @media (min-width: 800px) {
+  .progress-bar-container {
+    height: 42px;
+  }
+  .progress-bar {
+    height: 32px;
+  }
+
   .content {
     width: calc(100vw - 316px);
     position: relative;

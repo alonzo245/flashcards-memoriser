@@ -195,7 +195,7 @@ function Teleprompter() {
           <h5
             style={{
               padding: "0px 10px",
-              fontSize: width < mobileThreshold ? "22px" : "42px",
+              fontSize: width < mobileThreshold ? "20px" : "32px",
             }}
           >
             {flashcards?.[listId]?.title}
