@@ -330,7 +330,7 @@
   width: 100vw;
   height: 10px;
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 0x;
 }
 
 .progress-bar-container .title {
@@ -350,7 +350,7 @@
     height: 22px;
   }
   .progress-bar {
-    height: 32px;
+    height: 22px;
   }
 
   .content {
