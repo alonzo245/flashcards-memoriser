@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./App.css";
 import { useScreenSize } from "./hooks/useScreenSize";
 import { mobileThreshold } from "./config/theme.constants";
+import FullScreen from "./FullScreen";
 
 const ProgressBar = ({ array, currentItem, children }) => {
   const progress = ((currentItem + 1) / array.length) * 100; // Calculate progress percentage
@@ -67,6 +68,7 @@ const FontRange = ({ value, setValue }) => {
       >
         הקטן פונט
       </button>
+      <FullScreen />
     </div>
   );
 };
