@@ -90,6 +90,27 @@ function Teleprompter() {
 
   const navigate = useNavigate();
 
+  // const [touchStart, setTouchStart] = useState(null);
+  // const [touchEnd, setTouchEnd] = useState(null);
+  // const minSwipeDistance = 0;
+
+  // const onTouchStart = (e) => {
+  //   setTouchEnd(null); // otherwise the swipe is fired even with usual touch events
+  //   setTouchStart(e.targetTouches[0].clientX);
+  // };
+
+  // const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientY);
+
+  // const onTouchEnd = () => {
+  //   if (!touchStart || !touchEnd) return;
+  //   const distance = touchStart - touchEnd;
+  //   const isUpSwipe = distance > minSwipeDistance;
+  //   const isDownSwipe = distance < -minSwipeDistance;
+  //   if (isUpSwipe || isDownSwipe) {
+  //     console.log("swipe", isUpSwipe ? "isUpSwipe" : "isDownSwipe");
+  //   }
+  // };
+
   const handleKeyDown = (event, allow = false) => {
     event.preventDefault();
 
@@ -209,8 +230,9 @@ function Teleprompter() {
 
         <div
           className="flashcards-tele"
-          // onClick={(e) => handleKeyDown(e, true)}
-          // onContextMenu={(e) => handleKeyUp(e, true)}
+          // onTouchStart={onTouchStart}
+          // onTouchMove={onTouchMove}
+          // onTouchEnd={onTouchEnd}
         >
           {flashcards[listId]?.list[position]?.text && (
             <div
