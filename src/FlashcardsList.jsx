@@ -89,25 +89,25 @@ function FlashcardsList() {
                     className="start-game-button"
                     onClick={(e) => handleClickRemember(e, id)}
                   >
-                    זכרון
+                    📝
                   </span>
                   <span
                     className="start-game-button"
                     onClick={(e) => handleClick(e, id)}
                   >
-                    הבא
+                    ⬅️
                   </span>
                   <span
                     className="start-game-button"
                     onClick={(e) => handleClickInterval(e, id)}
                   >
-                    אינטרבל
+                    ⏱️
                   </span>
                   <span
                     className="start-game-button"
                     onClick={(e) => handleClickTeleprompter(e, id)}
                   >
-                    T
+                    📺
                   </span>
                 </div>
               )}

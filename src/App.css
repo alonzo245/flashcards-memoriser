@@ -208,7 +208,7 @@
   flex-direction: column;
   width: 100vw;
 }
-.start-game-button,
+
 .count-button {
   text-align: center;
   padding: 2px;
@@ -223,6 +223,22 @@
   display: table;
   margin-inline: 2px;
   height: fit-content;
+}
+.start-game-button {
+  text-align: center;
+  padding: 2px;
+  color: #6cabff;
+  border: 0px;
+  font-size: 13px;
+  float: left;
+  /* border-radius: 4px; */
+  /* border: 1px solid #6cabff; */
+  /* width: 49%; */
+  margin-top: 2px;
+  display: table;
+  margin-inline: 2px;
+  height: fit-content;
+  font-size: 22px;
 }
 .count-button {
   color: gray;

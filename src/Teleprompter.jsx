@@ -18,6 +18,8 @@ const ProgressBar = ({ array, currentItem, children }) => {
 };
 
 const FontRange = ({ value, setValue }) => {
+  const navigate = useNavigate();
+
   const [flashcardsRememberFontSize, setFlashcardsRememberFontSize] =
     useLocalStorage("flashcardsTeleprompterFontSize", 50);
 
@@ -47,7 +49,7 @@ const FontRange = ({ value, setValue }) => {
       <button
         className="nextBlockButton"
         onClick={() => {
-          document.location.href = "/flashcards-memoriser";
+          navigate("/flashcards-memoriser");
         }}
       >
         ראשי
