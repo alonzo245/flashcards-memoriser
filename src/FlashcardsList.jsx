@@ -8,6 +8,8 @@ import { timestampToDDMMYY } from "./utils";
 
 function FlashcardsList() {
   const { width } = useScreenSize();
+  const titlesToCopy = [];
+
   const matchTeleprompter = useMatch(
     "/flashcards-memoriser/teleprompter/:listId"
   );
@@ -56,6 +58,7 @@ function FlashcardsList() {
           </div>
         )}
         {list.map((id, key) => {
+          titlesToCopy.push(flashcards[id].title);
           return (
             <div
               key={id}
@@ -114,6 +117,24 @@ function FlashcardsList() {
             </div>
           );
         })}
+        <button
+          className="navAdd"
+          onClick={() => {
+            const stringToCopy = titlesToCopy.join("\n"); // Join array elements with newline
+            navigator.clipboard
+              .writeText(stringToCopy)
+              .then(() => {
+                console.log("Array copied to clipboard");
+                // Optionally, you can add feedback to the user that the copy was successful
+              })
+              .catch((error) => {
+                console.error("Error copying array to clipboard: ", error);
+                // Handle any errors if the copy operation fails
+              });
+          }}
+        >
+          העתק נושאים
+        </button>
       </div>
     </>
   );
