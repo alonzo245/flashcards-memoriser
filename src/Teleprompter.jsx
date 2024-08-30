@@ -110,6 +110,7 @@ function Teleprompter() {
   const [position, setPosition] = useState(0);
   const [keyPressed, setKeyPressed] = useState(false);
   const [isPageDownPressed, setIsPageDownPressed] = useState(false);
+  const [nextSpeech, setNextSpeech] = useState(null);
 
   const navigate = useNavigate();
 
@@ -204,7 +205,14 @@ function Teleprompter() {
       );
       speech.lang = "he-IL"; // Set the language to Hebrew (Israel)
       speech.rate = flashcardsSpeakRate; // Set the speech rate
-      window.speechSynthesis.speak(speech);
+      window.speechSynthesis.speak(nextSpeech || speech);
+      const nextText = flashcards?.[listId]?.list?.[position + 1]?.text;
+      if (nextText) {
+        const speech = new SpeechSynthesisUtterance(nextText);
+        speech.lang = "he-IL"; // Set the language to Hebrew (Israel)
+        speech.rate = flashcardsSpeakRate; // Set the speech rate
+        setNextSpeech(speech);
+      }
     }
 
     return () => {
