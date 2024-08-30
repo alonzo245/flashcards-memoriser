@@ -23,6 +23,11 @@ const FontRange = ({ value, setValue }) => {
   const [flashcardsRememberFontSize, setFlashcardsRememberFontSize] =
     useLocalStorage("flashcardsTeleprompterFontSize", 50);
 
+  const [flashcardsSpeakRate, setFlashcardsSpeakRate] = useLocalStorage(
+    "flashcardsSpeakRate",
+    1.4
+  );
+
   const handleIncrement = () => {
     if (value < 1) {
       setValue && setValue(value + 0.1);
@@ -71,6 +76,23 @@ const FontRange = ({ value, setValue }) => {
         הקטן פונט
       </button>
       <FullScreen />
+      <button
+        className="nextBlockButton"
+        onClick={() => {
+          setFlashcardsSpeakRate(flashcardsSpeakRate - 0.2);
+        }}
+      >
+        איטי
+      </button>
+      <div>{flashcardsSpeakRate.toFixed(1)}</div>
+      <button
+        className="nextBlockButton"
+        onClick={() => {
+          setFlashcardsSpeakRate(flashcardsSpeakRate + 0.2);
+        }}
+      >
+        מהיר
+      </button>
     </div>
   );
 };
@@ -79,6 +101,7 @@ function Teleprompter() {
   const { width } = useScreenSize();
 
   const [flashcards] = useLocalStorage("flashcards");
+  const [flashcardsSpeakRate] = useLocalStorage("flashcardsSpeakRate", 1);
   const [flashcardsTeleprompterFontSize] = useLocalStorage(
     "flashcardsTeleprompterFontSize",
     50
@@ -170,6 +193,24 @@ function Teleprompter() {
       setKeyPressed(!keyPressed);
     }
   };
+
+  useEffect(() => {
+    if (
+      "speechSynthesis" in window &&
+      flashcards?.[listId]?.list?.[position]?.text
+    ) {
+      const speech = new SpeechSynthesisUtterance(
+        flashcards?.[listId]?.list?.[position]?.text
+      );
+      speech.lang = "he-IL"; // Set the language to Hebrew (Israel)
+      speech.rate = flashcardsSpeakRate; // Set the speech rate
+      window.speechSynthesis.speak(speech);
+    }
+
+    return () => {
+      window.speechSynthesis.cancel();
+    };
+  }, [position]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
