@@ -135,6 +135,14 @@ function FlashcardsList() {
         >
           העתק נושאים
         </button>
+        <button
+          className="navAdd"
+          onClick={() => {
+            navigate("/flashcards-memoriser/text-to-speech");
+          }}
+        >
+          דבר טקסט
+        </button>
       </div>
     </>
   );

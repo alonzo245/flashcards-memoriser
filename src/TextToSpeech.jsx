@@ -105,14 +105,33 @@ function TextToSpeech() {
         textAlign: "center",
       }}
     >
-      <h1>Hebrew Text to Speech</h1>
-      <textarea
-        rows="5"
-        value={text}
-        onChange={handleTextChange}
-        style={{ width: "100%", padding: "10px", fontSize: "16px" }}
-        placeholder="Type each sentence on a new line..."
-      ></textarea>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "10px",
+          marginTop: "20px",
+        }}
+      >
+        <button
+          onClick={handlePause}
+          style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
+        >
+          Pause
+        </button>
+        <button
+          onClick={handlePrev}
+          style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
+        >
+          Back
+        </button>
+        <button
+          onClick={handleNext}
+          style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
+        >
+          Next
+        </button>
+      </div>
       <br />
       <label htmlFor="rate">
         Speech Rate: <span>{rate}</span>
@@ -127,33 +146,13 @@ function TextToSpeech() {
         onChange={handleRateChange}
         style={{ display: "block", margin: "10px auto" }}
       />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "10px",
-          marginTop: "20px",
-        }}
-      >
-        <button
-          onClick={handlePrev}
-          style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
-        >
-          Back
-        </button>
-        <button
-          onClick={handleNext}
-          style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
-        >
-          Next
-        </button>
-        <button
-          onClick={handlePause}
-          style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
-        >
-          Pause
-        </button>
-      </div>
+      <textarea
+        rows="5"
+        value={text}
+        onChange={handleTextChange}
+        style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+        placeholder="Type each sentence on a new line..."
+      ></textarea>
     </div>
   );
 }
