@@ -94,7 +94,7 @@ const TextToSpeechLineBreak = () => {
   return (
     <>
       <br />
-      <div
+      <button
         onClick={playNextUtterances}
         style={{
           width: "100vw",
@@ -116,7 +116,7 @@ const TextToSpeechLineBreak = () => {
       >
         <div>הבא</div>
         <br />
-      </div>
+      </button>
 
       <textarea
         value={text}

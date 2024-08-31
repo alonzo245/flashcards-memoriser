@@ -82,7 +82,7 @@ const TextToSpeech = () => {
   return (
     <>
       <br />
-      <div
+      <button
         onClick={handlePause}
         style={{
           width: "100vw",
@@ -105,7 +105,7 @@ const TextToSpeech = () => {
         <div> {pause || !isSpeaking ? "נגן" : "עצור"}</div>
 
         <br />
-      </div>
+      </button>
 
       <textarea
         value={text}
