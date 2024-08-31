@@ -16,6 +16,7 @@ function Menu() {
   const matchTeleprompter = useMatch(
     "/flashcards-memoriser/teleprompter/:listId"
   );
+  const matchTextToSpeech = useMatch("/flashcards-memoriser/text-to-speech");
 
   const [expendCards, setSxpendCards] = useLocalStorage("expendCards");
   const [flashcards, setFlashcards] = useLocalStorage("flashcards");
@@ -50,7 +51,7 @@ function Menu() {
 
   return (
     <div className="header">
-      {width < mobileThreshold && !matchTeleprompter && (
+      {width < mobileThreshold && !matchTeleprompter && !matchTextToSpeech && (
         <div className="navRow">
           <button
             className="navButton"
