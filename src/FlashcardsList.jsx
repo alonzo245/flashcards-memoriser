@@ -134,40 +134,42 @@ function FlashcardsList() {
             </div>
           );
         })}
-        <button
-          className="navAdd"
-          onClick={() => {
-            const stringToCopy = titlesToCopy.join("\n"); // Join array elements with newline
-            navigator.clipboard
-              .writeText(stringToCopy)
-              .then(() => {
-                console.log("Array copied to clipboard");
-                // Optionally, you can add feedback to the user that the copy was successful
-              })
-              .catch((error) => {
-                console.error("Error copying array to clipboard: ", error);
-                // Handle any errors if the copy operation fails
-              });
-          }}
-        >
-          העתק נושאים
-        </button>
-        <button
-          className="navAdd"
-          onClick={() => {
-            navigate("/flashcards-memoriser/text-to-speech");
-          }}
-        >
-          טקסט לדיבור
-        </button>
-        <button
-          className="navAdd"
-          onClick={() => {
-            navigate("/flashcards-memoriser/text-to-speech-line-break");
-          }}
-        >
-          טקסט לדיבור ראשי פרקים
-        </button>
+        <div>
+          <button
+            className="navAdd"
+            onClick={() => {
+              const stringToCopy = titlesToCopy.join("\n"); // Join array elements with newline
+              navigator.clipboard
+                .writeText(stringToCopy)
+                .then(() => {
+                  console.log("Array copied to clipboard");
+                  // Optionally, you can add feedback to the user that the copy was successful
+                })
+                .catch((error) => {
+                  console.error("Error copying array to clipboard: ", error);
+                  // Handle any errors if the copy operation fails
+                });
+            }}
+          >
+            העתק נושאים
+          </button>
+          <button
+            className="navAdd"
+            onClick={() => {
+              navigate("/flashcards-memoriser/text-to-speech-line-break");
+            }}
+          >
+            טקסט לדיבור ראשי פרקים
+          </button>
+          <button
+            className="navAdd"
+            onClick={() => {
+              navigate("/flashcards-memoriser/text-to-speech");
+            }}
+          >
+            יש באג באנדרואיד טקסט לדיבור
+          </button>
+        </div>
       </div>
     </>
   );

@@ -77,6 +77,7 @@ const TextToSpeech = () => {
 
       if (isSpeaking) {
         speechObjRef.current.pause();
+        speechObjRef.current.paused = true;
         setlog(`pause - isSpeaking: ${isSpeaking}, `);
         setpause(true);
       }
@@ -89,6 +90,7 @@ const TextToSpeech = () => {
 
         setpause(false);
         speechObjRef.current.resume();
+        speechObjRef.current.speaking = true;
         setlog(`play - is speacking: ${isSpeaking}`);
       } else {
         console.log("play");
