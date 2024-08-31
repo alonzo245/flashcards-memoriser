@@ -10,9 +10,12 @@ const TextToSpeechLineBreak = () => {
   const [utterances, setUtterances] = useState([]);
   const [position, setposition] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [playing, setplaying] = useState(false);
 
   const handleFullScreenToggle = () => {
-    if (/Mobi|Android/i.test(navigator.userAgent)) {
+    console.log("navigator.userAgent", navigator.userAgent);
+
+    if (!/Mobi|Android/i.test(navigator.userAgent)) {
       return;
     }
 
@@ -91,7 +94,14 @@ const TextToSpeechLineBreak = () => {
       return;
     }
 
+    window.speechSynthesis.cancel();
+    setplaying(true);
     if (utterances.length > 0 && utterances?.[position]) {
+      utterances[position].onend = function () {
+        // alert("Speech has finished!");
+        setplaying(false);
+      };
+
       window.speechSynthesis.speak(utterances?.[position]);
       setposition(position + 1);
     }
@@ -137,7 +147,7 @@ const TextToSpeechLineBreak = () => {
           justifyContent: "center",
         }}
       >
-        <div>הבא</div>
+        <div>{playing ? "מנגן" : "הבא"}</div>
         <br />
       </button>
 

@@ -12,7 +12,7 @@ const TextToSpeech = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const handleFullScreenToggle = () => {
-    if (/Mobi|Android/i.test(navigator.userAgent)) {
+    if (!/Mobi|Android/i.test(navigator.userAgent)) {
       return;
     }
 
