@@ -39,7 +39,7 @@ const TextToSpeechLineBreak = () => {
     const newUtterances = lines
       .filter((line) => !!line)
       .map((line) => {
-        console.log("line: ", line);
+        // console.log("line: ", line);
 
         const utterance = new SpeechSynthesisUtterance(line);
         utterance.lang = "he-IL";
