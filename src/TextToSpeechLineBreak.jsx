@@ -9,22 +9,23 @@ const TextToSpeechLineBreak = () => {
   const [toggleButton, settogglebutton] = useState(true);
   const [utterances, setUtterances] = useState([]);
   const [position, setposition] = useState(0);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
-  useEffect(() => {
-    window.speechSynthesis.cancel();
-    const savedText = localStorage.getItem("text-line-break");
-    if (savedText) {
-      setText(savedText);
-      preloadUtterances(savedText);
+  const handleFullScreenToggle = () => {
+    if (!isFullScreen) {
+      // Enter full screen mode
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+      setIsFullScreen(true);
+    } else {
+      // Exit full screen mode
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      setIsFullScreen(false);
     }
-  }, []);
-
-  useEffect(() => {
-    const textRate = localStorage.getItem("text-rate-line-break");
-    if (textRate) {
-      settextRate(textRate);
-    }
-  }, []);
+  };
 
   const handleTextChange = (e) => {
     const newText = e.target.value;
@@ -63,6 +64,7 @@ const TextToSpeechLineBreak = () => {
   };
 
   const handleToggleButton = () => {
+    handleFullScreenToggle();
     settogglebutton(!toggleButton);
     if (!speechRef.current) return;
 
@@ -90,6 +92,22 @@ const TextToSpeechLineBreak = () => {
       setposition(position + 1);
     }
   };
+
+  useEffect(() => {
+    window.speechSynthesis.cancel();
+    const savedText = localStorage.getItem("text-line-break");
+    if (savedText) {
+      setText(savedText);
+      preloadUtterances(savedText);
+    }
+  }, []);
+
+  useEffect(() => {
+    const textRate = localStorage.getItem("text-rate-line-break");
+    if (textRate) {
+      settextRate(textRate);
+    }
+  }, []);
 
   return (
     <>

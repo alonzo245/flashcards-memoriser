@@ -28,19 +28,19 @@ const FontRange = ({ value, setValue }) => {
     1.4
   );
 
-  const handleIncrement = () => {
-    if (value < 1) {
-      setValue && setValue(value + 0.1);
-      console.log("value", value + 0.1);
-    }
-  };
+  // const handleIncrement = () => {
+  //   if (value < 1) {
+  //     setValue && setValue(value + 0.1);
+  //     console.log("value", value + 0.1);
+  //   }
+  // };
 
-  const handleDecrement = () => {
-    if (value.toFixed(1) > 0.1) {
-      setValue && setValue(value - 0.1);
-      console.log("value", value - 0.1);
-    }
-  };
+  // const handleDecrement = () => {
+  //   if (value.toFixed(1) > 0.1) {
+  //     setValue && setValue(value - 0.1);
+  //     console.log("value", value - 0.1);
+  //   }
+  // };
 
   return (
     <div

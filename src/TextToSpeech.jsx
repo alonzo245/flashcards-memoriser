@@ -9,22 +9,23 @@ const TextToSpeech = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [pause, setpause] = useState(false);
   const [toggleButton, settogglebutton] = useState(true);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
-  useEffect(() => {
-    window.speechSynthesis.cancel();
-    const savedText = localStorage.getItem("text");
-    if (savedText) {
-      setText(savedText);
+  const handleFullScreenToggle = () => {
+    if (!isFullScreen) {
+      // Enter full screen mode
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+      setIsFullScreen(true);
+    } else {
+      // Exit full screen mode
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      setIsFullScreen(false);
     }
-  }, []);
-
-  useEffect(() => {
-    const textRate = localStorage.getItem("text-rate");
-
-    if (textRate) {
-      settextRate(textRate);
-    }
-  }, []);
+  };
 
   const handleTextChange = (e) => {
     const newText = e.target.value;
@@ -41,6 +42,7 @@ const TextToSpeech = () => {
   };
 
   const handleToggleButton = () => {
+    handleFullScreenToggle();
     settogglebutton(!toggleButton);
     if (!speechRef.current) return;
 
@@ -78,6 +80,22 @@ const TextToSpeech = () => {
       }
     }
   };
+
+  useEffect(() => {
+    window.speechSynthesis.cancel();
+    const savedText = localStorage.getItem("text");
+    if (savedText) {
+      setText(savedText);
+    }
+  }, []);
+
+  useEffect(() => {
+    const textRate = localStorage.getItem("text-rate");
+
+    if (textRate) {
+      settextRate(textRate);
+    }
+  }, []);
 
   return (
     <>
