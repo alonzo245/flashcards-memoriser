@@ -17,6 +17,9 @@ function Menu() {
     "/flashcards-memoriser/teleprompter/:listId"
   );
   const matchTextToSpeech = useMatch("/flashcards-memoriser/text-to-speech");
+  const matchTextToSpeechLineBreak = useMatch(
+    "/flashcards-memoriser/text-to-speech-line-break"
+  );
 
   const [expendCards, setSxpendCards] = useLocalStorage("expendCards");
   const [flashcards, setFlashcards] = useLocalStorage("flashcards");
@@ -51,22 +54,25 @@ function Menu() {
 
   return (
     <div className="header">
-      {width < mobileThreshold && !matchTeleprompter && !matchTextToSpeech && (
-        <div className="navRow">
-          <button
-            className="navButton"
-            onClick={() => navigate("/flashcards-memoriser")}
-          >
-            רשימה
-          </button>
-          <button
-            className="navButton"
-            onClick={() => navigate("/flashcards-memoriser/add")}
-          >
-            הוספה
-          </button>
-        </div>
-      )}
+      {width < mobileThreshold &&
+        !matchTeleprompter &&
+        !matchTextToSpeech &&
+        !matchTextToSpeechLineBreak && (
+          <div className="navRow">
+            <button
+              className="navButton"
+              onClick={() => navigate("/flashcards-memoriser")}
+            >
+              רשימה
+            </button>
+            <button
+              className="navButton"
+              onClick={() => navigate("/flashcards-memoriser/add")}
+            >
+              הוספה
+            </button>
+          </div>
+        )}
       {(match1 || match2 || match3) && (
         <div className="fontRow">
           <button className="editButton" onClick={() => onExpendCards()}>

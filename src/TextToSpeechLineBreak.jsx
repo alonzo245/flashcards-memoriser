@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
 
-const TextToSpeech = () => {
+const TextToSpeechLineBreak = () => {
   const navigate = useNavigate();
   const speechRef = useRef(null);
   const [text, setText] = useState("");
@@ -205,4 +205,4 @@ const TextToSpeech = () => {
   );
 };
 
-export default TextToSpeech;
+export default TextToSpeechLineBreak;

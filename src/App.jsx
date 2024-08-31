@@ -11,6 +11,7 @@ import { useScreenSize } from "./hooks/useScreenSize";
 import { mobileThreshold } from "./config/theme.constants";
 import Teleprompter from "./Teleprompter";
 import TextToSpeech from "./TextToSpeech";
+import TextToSpeechLineBreak from "./TextToSpeechLineBreak";
 
 function App() {
   const { width } = useScreenSize();
@@ -27,6 +28,10 @@ function App() {
             <Route
               path="/flashcards-memoriser/text-to-speech"
               element={<TextToSpeech />}
+            />
+            <Route
+              path="/flashcards-memoriser/text-to-speech-line-break"
+              element={<TextToSpeechLineBreak />}
             />
             <Route
               path="/flashcards-memoriser/teleprompter/:listId"

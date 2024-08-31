@@ -141,7 +141,15 @@ function FlashcardsList() {
             navigate("/flashcards-memoriser/text-to-speech");
           }}
         >
-          דבר טקסט
+          טקסט לדיבור
+        </button>
+        <button
+          className="navAdd"
+          onClick={() => {
+            navigate("/flashcards-memoriser/text-to-speech-line-break");
+          }}
+        >
+          טקסט לדיבור ראשי פרקים
         </button>
       </div>
     </>
