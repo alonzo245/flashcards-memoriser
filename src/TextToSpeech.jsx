@@ -7,7 +7,7 @@ const TextToSpeech = () => {
   const [text, setText] = useState("");
   const [textRate, settextRate] = useState(1.2);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [pause, setpause] = useState(false);
+  const [pause, setpause] = useState(true);
   const [toggleButton, settogglebutton] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -51,8 +51,10 @@ const TextToSpeech = () => {
     if (!speechRef.current) return;
 
     if (toggleButton) {
+      setpause(false);
       window.speechSynthesis.resume();
     } else {
+      setpause(true);
       window.speechSynthesis.pause();
     }
   };
@@ -63,12 +65,16 @@ const TextToSpeech = () => {
   };
 
   const handlePause = () => {
-    if (!pause && isSpeaking) {
+    if (!pause) {
       console.log("pause");
 
-      window.speechSynthesis.pause();
-      setpause(true);
+      if (isSpeaking) {
+        window.speechSynthesis.pause();
+        setpause(true);
+      }
     } else {
+      console.log("isSpeaking", isSpeaking);
+
       if (isSpeaking) {
         console.log("play - is speacking");
         window.speechSynthesis.resume();
@@ -81,6 +87,7 @@ const TextToSpeech = () => {
         speechRef.current.onend = () => setIsSpeaking(false);
         window.speechSynthesis.speak(speechRef.current);
         setIsSpeaking(true);
+        setpause(false);
       }
     }
   };
@@ -125,7 +132,7 @@ const TextToSpeech = () => {
           justifyContent: "center",
         }}
       >
-        <div> {pause || !isSpeaking ? "נגן" : "עצור"}</div>
+        <div> {pause ? "נגן" : "עצור"}</div>
 
         <br />
       </button>
