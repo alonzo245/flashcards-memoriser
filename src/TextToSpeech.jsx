@@ -4,6 +4,7 @@ import { useMatch, useNavigate } from "react-router-dom";
 const TextToSpeech = () => {
   const navigate = useNavigate();
   const speechRef = useRef(null);
+  const speechObjRef = useRef(null);
   const [text, setText] = useState("");
   const [textRate, settextRate] = useState(1.2);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -42,7 +43,7 @@ const TextToSpeech = () => {
     settextRate(e.target.value);
     localStorage.setItem("text-rate", e.target.value);
     if (speechRef.current) {
-      window.speechSynthesis.rate = textRate;
+      speechObjRef.current.rate = textRate;
     }
   };
 
@@ -53,10 +54,10 @@ const TextToSpeech = () => {
 
     if (toggleButton) {
       setpause(false);
-      window.speechSynthesis.resume();
+      speechObjRef.current.resume();
     } else {
       setpause(true);
-      window.speechSynthesis.pause();
+      speechObjRef.current.pause();
     }
   };
 
@@ -66,13 +67,17 @@ const TextToSpeech = () => {
   };
 
   const handlePause = () => {
+    if (!speechObjRef.current) {
+      speechObjRef.current = window.speechSynthesis;
+    }
+
     if (!pause) {
       console.log("pause");
       setlog("pause");
 
       if (isSpeaking) {
-        setlog(`pause - isSpeaking: ${isSpeaking}`);
-        window.speechSynthesis.pause();
+        speechObjRef.current.pause();
+        setlog(`pause - isSpeaking: ${isSpeaking}, `);
         setpause(true);
       }
     } else {
@@ -81,17 +86,21 @@ const TextToSpeech = () => {
 
       if (isSpeaking) {
         console.log("play - is speacking");
-        setlog(`play - is speacking: ${isSpeaking}`);
-        window.speechSynthesis.resume();
+
         setpause(false);
+        speechObjRef.current.resume();
+        setlog(`play - is speacking: ${isSpeaking}`);
       } else {
         console.log("play");
         setlog("play");
         speechRef.current = new SpeechSynthesisUtterance(text);
         speechRef.current.lang = "he-IL";
         speechRef.current.rate = textRate;
-        speechRef.current.onend = () => setIsSpeaking(false);
-        window.speechSynthesis.speak(speechRef.current);
+        speechRef.current.onend = () => {
+          setpause(true);
+          setIsSpeaking(false);
+        };
+        speechObjRef.current.speak(speechRef.current);
         setIsSpeaking(true);
         setpause(false);
       }
