@@ -10,6 +10,7 @@ const TextToSpeech = () => {
   const [pause, setpause] = useState(true);
   const [toggleButton, settogglebutton] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [log, setlog] = useState(false);
 
   const handleFullScreenToggle = () => {
     if (!/Mobi|Android/i.test(navigator.userAgent)) {
@@ -67,20 +68,25 @@ const TextToSpeech = () => {
   const handlePause = () => {
     if (!pause) {
       console.log("pause");
+      setlog("pause");
 
       if (isSpeaking) {
+        setlog(`pause - isSpeaking: ${isSpeaking}`);
         window.speechSynthesis.pause();
         setpause(true);
       }
     } else {
       console.log("isSpeaking", isSpeaking);
+      setlog(`isSpeaking: ${isSpeaking}`);
 
       if (isSpeaking) {
         console.log("play - is speacking");
+        setlog(`play - is speacking: ${isSpeaking}`);
         window.speechSynthesis.resume();
         setpause(false);
       } else {
         console.log("play");
+        setlog("play");
         speechRef.current = new SpeechSynthesisUtterance(text);
         speechRef.current.lang = "he-IL";
         speechRef.current.rate = textRate;
@@ -132,9 +138,10 @@ const TextToSpeech = () => {
           justifyContent: "center",
         }}
       >
-        <div> {pause ? "נגן" : "עצור"}</div>
-
-        <br />
+        <div>
+          <div> {pause ? "נגן" : "עצור"}</div>
+          <div style={{ width: "100%", display: "block" }}>[{log}]</div>
+        </div>
       </button>
 
       <textarea

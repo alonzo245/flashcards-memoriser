@@ -19,6 +19,10 @@ const TextToSpeechLineBreak = () => {
       return;
     }
 
+    if (!document?.documentElement) {
+      return;
+    }
+
     if (!isFullScreen) {
       // Enter full screen mode
       if (document.documentElement.requestFullscreen) {
