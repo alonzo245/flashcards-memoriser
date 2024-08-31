@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const TextToSpeech = () => {
+  const speechRef = useRef(null);
   const [text, setText] = useState("");
   const [textRate, settextRate] = useState(1);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -15,6 +16,9 @@ const TextToSpeech = () => {
     if (savedText) {
       setText(savedText);
     }
+    if (textRate) {
+      settextRate(savedText);
+    }
   }, []);
 
   const handleTextChange = (e) => {
@@ -25,11 +29,27 @@ const TextToSpeech = () => {
 
   const handleRateChange = (e) => {
     settextRate(e.target.value);
+    if (speechRef.current) {
+      window.speechSynthesis.rate = textRate;
+    }
   };
 
   const handleToggleButton = () => {
     settogglebutton(!toggleButton);
+    if (!speechRef.current) return;
+
+    if (toggleButton) {
+      window.speechSynthesis.resume();
+    } else {
+      window.speechSynthesis.pause();
+    }
   };
+
+  const cleartext = () => {
+    setText("");
+    localStorage.clear("text");
+  };
+
   const handlePause = () => {
     if (!pause && isSpeaking) {
       console.log("pause");
@@ -43,11 +63,11 @@ const TextToSpeech = () => {
         setpause(false);
       } else {
         console.log("play");
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "he-IL";
-        utterance.rate = textRate;
-        utterance.onend = () => setIsSpeaking(false);
-        window.speechSynthesis.speak(utterance);
+        speechRef.current = new SpeechSynthesisUtterance(text);
+        speechRef.current.lang = "he-IL";
+        speechRef.current.rate = textRate;
+        speechRef.current.onend = () => setIsSpeaking(false);
+        window.speechSynthesis.speak(speechRef.current);
         setIsSpeaking(true);
       }
     }
@@ -96,7 +116,6 @@ const TextToSpeech = () => {
       />
       <div
         for="rate"
-        s
         style={{
           display: "block",
           margin: "10px auto",
@@ -147,6 +166,20 @@ const TextToSpeech = () => {
         }
       >
         <div>{toggleButton ? "התחל" : "הסתר"}</div>
+      </div>
+      <div
+        onClick={cleartext}
+        style={{
+          display: "block",
+          margin: "0px auto",
+          width: "60%",
+          padding: "10px",
+          textAlign: "center",
+          background: "#111",
+          marginTop: "20px",
+        }}
+      >
+        <div>נקה טקסט</div>
       </div>
     </>
   );
