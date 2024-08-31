@@ -5,41 +5,66 @@ function TextToSpeech() {
   const [sentences, setSentences] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [rate, setRate] = useState(1);
-  const [speech, setSpeech] = useState(null);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [pause, setpause] = useState(false);
 
   // Update the sentences array when the text changes
   useEffect(() => {
-    setSentences(text.split("\n").filter((sentence) => sentence.trim() !== ""));
+    const textb = text;
+    console.log(textb.split("..."));
+
+    setSentences(
+      textb
+        .split("...")
+        .filter((sentence) => sentence.trim() !== "")
+        .map((sentence) => {
+          console.log("sssss", `${sentence}...`);
+          return `${sentence}...`;
+        })
+    );
     setCurrentIndex(0);
   }, [text]);
 
-  // Speak the current sentence and preload the next one
-  useEffect(() => {
-    if (speech) {
-      window.speechSynthesis.cancel(); // Cancel any ongoing speech
-    }
+  // Function to speak a segment with a pause after "..."
+  const speakSegment = (segment) => {
+    return new Promise((resolve) => {
+      const speech = new SpeechSynthesisUtterance(segment);
+      speech.lang = "he-IL"; // Set the language to Hebrew (Israel)
+      speech.rate = rate; // Set the speech rate
 
-    if (sentences.length > 0 && currentIndex < sentences.length) {
-      const currentText = sentences[currentIndex];
-      const currentSpeech = new SpeechSynthesisUtterance(currentText);
-      currentSpeech.lang = "he-IL"; // Set the language to Hebrew (Israel)
-      currentSpeech.rate = rate; // Set the speech rate
-      window.speechSynthesis.speak(currentSpeech);
-      setSpeech(currentSpeech);
+      speech.onend = () => {
+        resolve();
+      };
 
-      // Preload the next speech (but don't speak it yet)
-      const nextText = sentences[currentIndex + 1];
-      if (nextText) {
-        const nextSpeech = new SpeechSynthesisUtterance(nextText);
-        nextSpeech.lang = "he-IL"; // Set the language to Hebrew (Israel)
-        nextSpeech.rate = rate; // Set the speech rate
-        // This preload is in memory, ready for quick access
+      window.speechSynthesis.speak(speech);
+    });
+  };
+
+  // Function to speak the current sentence with pauses at "..."
+  const speakCurrentSentence = async () => {
+    if (currentIndex < sentences.length) {
+      setIsSpeaking(true);
+      const parts = sentences[currentIndex].split("...");
+
+      for (const part of parts) {
+        await speakSegment(part.trim());
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Pause for 1 second
       }
 
-      return () => {
-        window.speechSynthesis.cancel(); // Clean up by canceling the speech when component unmounts or effect re-runs
-      };
+      setIsSpeaking(false);
     }
+  };
+
+  // Handle the speech when the currentIndex changes
+  useEffect(() => {
+    if ("speechSynthesis" in window && sentences.length > 0 && !isSpeaking) {
+      window.speechSynthesis.cancel(); // Cancel any ongoing speech
+      speakCurrentSentence();
+    }
+
+    return () => {
+      window.speechSynthesis.cancel();
+    };
   }, [currentIndex, sentences, rate]);
 
   const handleTextChange = (e) => {
@@ -51,13 +76,22 @@ function TextToSpeech() {
   };
 
   const handleNext = () => {
-    if (currentIndex < sentences.length - 1) {
+    if (!isSpeaking && currentIndex < sentences.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
   };
 
+  const handlePause = () => {
+    setpause(!pause);
+    if (!pause) {
+      window.speechSynthesis.pause();
+    } else {
+      window.speechSynthesis.resume();
+    }
+  };
+
   const handlePrev = () => {
-    if (currentIndex > 0) {
+    if (!isSpeaking && currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
   };
@@ -71,6 +105,7 @@ function TextToSpeech() {
         textAlign: "center",
       }}
     >
+      <h1>Hebrew Text to Speech</h1>
       <textarea
         rows="5"
         value={text}
@@ -111,6 +146,12 @@ function TextToSpeech() {
           style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
         >
           Next
+        </button>
+        <button
+          onClick={handlePause}
+          style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
+        >
+          Pause
         </button>
       </div>
     </div>
