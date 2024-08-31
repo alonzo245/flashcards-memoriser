@@ -4,6 +4,10 @@ const FullScreen = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const handleFullScreenToggle = () => {
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      return;
+    }
+
     if (!isFullScreen) {
       // Enter full screen mode
       if (document.documentElement.requestFullscreen) {

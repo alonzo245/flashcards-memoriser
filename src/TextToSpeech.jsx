@@ -5,13 +5,17 @@ const TextToSpeech = () => {
   const navigate = useNavigate();
   const speechRef = useRef(null);
   const [text, setText] = useState("");
-  const [textRate, settextRate] = useState("");
+  const [textRate, settextRate] = useState(1.2);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [pause, setpause] = useState(false);
   const [toggleButton, settogglebutton] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const handleFullScreenToggle = () => {
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      return;
+    }
+
     if (!isFullScreen) {
       // Enter full screen mode
       if (document.documentElement.requestFullscreen) {
@@ -99,6 +103,7 @@ const TextToSpeech = () => {
 
   return (
     <>
+      <div>טקסט לדיבור</div>
       <br />
       <button
         onClick={handlePause}
@@ -139,7 +144,7 @@ const TextToSpeech = () => {
         }}
       />
       <div
-        for="rate"
+        htmlFor="rate"
         style={{
           display: "block",
           margin: "10px auto",

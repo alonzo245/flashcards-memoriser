@@ -5,13 +5,17 @@ const TextToSpeechLineBreak = () => {
   const navigate = useNavigate();
   const speechRef = useRef(null);
   const [text, setText] = useState("");
-  const [textRate, settextRate] = useState("");
+  const [textRate, settextRate] = useState(1.2);
   const [toggleButton, settogglebutton] = useState(true);
   const [utterances, setUtterances] = useState([]);
   const [position, setposition] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const handleFullScreenToggle = () => {
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      return;
+    }
+
     if (!isFullScreen) {
       // Enter full screen mode
       if (document.documentElement.requestFullscreen) {
@@ -111,6 +115,7 @@ const TextToSpeechLineBreak = () => {
 
   return (
     <>
+      <div>טקסט לדיבור עם עצירה</div>
       <br />
       <button
         onClick={playNextUtterances}
