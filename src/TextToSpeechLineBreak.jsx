@@ -1,26 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useMatch, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const TextToSpeechLineBreak = () => {
   const navigate = useNavigate();
   const speechRef = useRef(null);
   const [text, setText] = useState("");
   const [textRate, settextRate] = useState("");
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [pause, setpause] = useState(false);
   const [toggleButton, settogglebutton] = useState(true);
+  const [utterances, setUtterances] = useState([]);
+  const [position, setposition] = useState(0);
 
   useEffect(() => {
     window.speechSynthesis.cancel();
-    const savedText = localStorage.getItem("text");
+    const savedText = localStorage.getItem("text-line-break");
     if (savedText) {
       setText(savedText);
+      preloadUtterances(savedText);
     }
   }, []);
 
   useEffect(() => {
-    const textRate = localStorage.getItem("text-rate");
-
+    const textRate = localStorage.getItem("text-rate-line-break");
     if (textRate) {
       settextRate(textRate);
     }
@@ -29,14 +29,36 @@ const TextToSpeechLineBreak = () => {
   const handleTextChange = (e) => {
     const newText = e.target.value;
     setText(newText);
-    localStorage.setItem("text", newText);
+    localStorage.setItem("text-line-break", newText);
+    preloadUtterances(newText);
+  };
+
+  const preloadUtterances = (text) => {
+    const lines = text.split("\n");
+    const newUtterances = lines
+      .filter((line) => !!line)
+      .map((line) => {
+        console.log("line: ", line);
+
+        const utterance = new SpeechSynthesisUtterance(line);
+        utterance.lang = "he-IL";
+        utterance.rate = textRate || 1;
+        return utterance;
+      });
+    setUtterances(newUtterances);
   };
 
   const handleRateChange = (e) => {
-    settextRate(e.target.value);
-    localStorage.setItem("text-rate", e.target.value);
-    if (speechRef.current) {
-      window.speechSynthesis.rate = textRate;
+    const newRate = e.target.value;
+    settextRate(newRate);
+    localStorage.setItem("text-rate-line-break", newRate);
+    if (utterances.length > 0) {
+      setUtterances((prevUtterances) =>
+        prevUtterances.map((utterance) => {
+          utterance.rate = newRate;
+          return utterance;
+        })
+      );
     }
   };
 
@@ -53,29 +75,19 @@ const TextToSpeechLineBreak = () => {
 
   const cleartext = () => {
     setText("");
-    localStorage.clear("text");
+    setUtterances([]);
+    localStorage.removeItem("text-line-break");
   };
 
-  const handlePause = () => {
-    if (!pause && isSpeaking) {
-      console.log("pause");
+  const playNextUtterances = () => {
+    if (!utterances?.[position]) {
+      setposition(0);
+      return;
+    }
 
-      window.speechSynthesis.pause();
-      setpause(true);
-    } else {
-      if (isSpeaking) {
-        console.log("play - is speacking");
-        window.speechSynthesis.resume();
-        setpause(false);
-      } else {
-        console.log("play");
-        speechRef.current = new SpeechSynthesisUtterance(text);
-        speechRef.current.lang = "he-IL";
-        speechRef.current.rate = textRate;
-        speechRef.current.onend = () => setIsSpeaking(false);
-        window.speechSynthesis.speak(speechRef.current);
-        setIsSpeaking(true);
-      }
+    if (utterances.length > 0 && utterances?.[position]) {
+      window.speechSynthesis.speak(utterances?.[position]);
+      setposition(position + 1);
     }
   };
 
@@ -83,7 +95,7 @@ const TextToSpeechLineBreak = () => {
     <>
       <br />
       <div
-        onClick={handlePause}
+        onClick={playNextUtterances}
         style={{
           width: "100vw",
           position: "fixed",
@@ -102,8 +114,7 @@ const TextToSpeechLineBreak = () => {
           justifyContent: "center",
         }}
       >
-        <div> {pause || !isSpeaking ? "נגן" : "עצור"}</div>
-
+        <div>הבא</div>
         <br />
       </div>
 
@@ -120,8 +131,9 @@ const TextToSpeechLineBreak = () => {
           margin: "0 auto",
         }}
       />
+
       <div
-        for="rate"
+        htmlFor="rate"
         style={{
           display: "block",
           margin: "10px auto",
@@ -131,6 +143,7 @@ const TextToSpeechLineBreak = () => {
       >
         מהירות דיבור <span id="rate-value">{textRate}</span>
       </div>
+
       <input
         onChange={handleRateChange}
         type="range"
@@ -140,6 +153,7 @@ const TextToSpeechLineBreak = () => {
         step="0.2"
         style={{ display: "block", margin: "0px auto", width: "60%" }}
       />
+
       <div
         onClick={handleToggleButton}
         style={
@@ -173,6 +187,7 @@ const TextToSpeechLineBreak = () => {
       >
         <div>{toggleButton ? "התחל" : "הסתר"}</div>
       </div>
+
       <div
         onClick={cleartext}
         style={{
@@ -187,6 +202,7 @@ const TextToSpeechLineBreak = () => {
       >
         <div>נקה טקסט</div>
       </div>
+
       <div
         onClick={() => navigate(`/flashcards-memoriser`)}
         style={{
