@@ -5,9 +5,12 @@ import "./App.css";
 import { mobileThreshold } from "./config/theme.constants";
 import { useScreenSize } from "./hooks/useScreenSize";
 import { timestampToDDMMYY } from "./utils";
+import { useState } from "react";
 
 function FlashcardsList() {
   const { width } = useScreenSize();
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
   const titlesToCopy = [];
 
   const matchTeleprompter = useMatch(
@@ -33,6 +36,20 @@ function FlashcardsList() {
 
   const handleClickTeleprompter = (e, id) => {
     e.stopPropagation();
+    if (!isFullScreen) {
+      // Enter full screen mode
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+      setIsFullScreen(true);
+    } else {
+      // Exit full screen mode
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      setIsFullScreen(false);
+    }
+
     navigate(`/flashcards-memoriser/teleprompter/${id}`);
   };
 
