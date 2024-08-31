@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 const TextToSpeech = () => {
   const speechRef = useRef(null);
   const [text, setText] = useState("");
-  const [textRate, settextRate] = useState(1);
+  const [textRate, settextRate] = useState("");
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [pause, setpause] = useState(false);
   const [toggleButton, settogglebutton] = useState(true);
@@ -12,12 +12,16 @@ const TextToSpeech = () => {
   useEffect(() => {
     window.speechSynthesis.cancel();
     const savedText = localStorage.getItem("text");
-    const textRate = localStorage.getItem("text-rate");
     if (savedText) {
       setText(savedText);
     }
+  }, []);
+
+  useEffect(() => {
+    const textRate = localStorage.getItem("text-rate");
+
     if (textRate) {
-      settextRate(savedText);
+      settextRate(textRate);
     }
   }, []);
 
@@ -29,6 +33,7 @@ const TextToSpeech = () => {
 
   const handleRateChange = (e) => {
     settextRate(e.target.value);
+    localStorage.setItem("text-rate", e.target.value);
     if (speechRef.current) {
       window.speechSynthesis.rate = textRate;
     }
