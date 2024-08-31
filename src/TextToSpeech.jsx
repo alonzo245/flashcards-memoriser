@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const TextToSpeech = () => {
   const [text, setText] = useState("");
+  const [textRate, settextRate] = useState(1);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [pause, setpause] = useState(false);
   const [toggleButton, settogglebutton] = useState(true);
@@ -10,6 +11,7 @@ const TextToSpeech = () => {
   useEffect(() => {
     window.speechSynthesis.cancel();
     const savedText = localStorage.getItem("text");
+    const textRate = localStorage.getItem("text-rate");
     if (savedText) {
       setText(savedText);
     }
@@ -19,6 +21,10 @@ const TextToSpeech = () => {
     const newText = e.target.value;
     setText(newText);
     localStorage.setItem("text", newText);
+  };
+
+  const handleRateChange = (e) => {
+    settextRate(e.target.value);
   };
 
   const handleToggleButton = () => {
@@ -39,6 +45,7 @@ const TextToSpeech = () => {
         console.log("play");
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "he-IL";
+        utterance.rate = textRate;
         utterance.onend = () => setIsSpeaking(false);
         window.speechSynthesis.speak(utterance);
         setIsSpeaking(true);
@@ -70,27 +77,8 @@ const TextToSpeech = () => {
         }}
       >
         <div> {pause || !isSpeaking ? "נגן" : "עצור"}</div>
-      </div>
-      <div
-        onClick={handleToggleButton}
-        style={{
-          width: "100vw",
-          position: "fixed",
-          bottom: 0,
-          left: "0",
-          zIndex: "111",
-          height: "20px",
-          opacity: "0.9",
-          border: "0px",
-          background: "#222",
-          color: "#ffffff20",
-          textAlign: "center",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div>{toggleButton ? "התחל" : "הסתר"}</div>
+
+        <br />
       </div>
 
       <textarea
@@ -106,6 +94,60 @@ const TextToSpeech = () => {
           margin: "0 auto",
         }}
       />
+      <div
+        for="rate"
+        s
+        style={{
+          display: "block",
+          margin: "10px auto",
+          width: "60%",
+          textAlign: "center",
+        }}
+      >
+        מהירות דיבור <span id="rate-value">{textRate}</span>
+      </div>
+      <input
+        onChange={handleRateChange}
+        type="range"
+        min="0.8"
+        max="5"
+        value={textRate}
+        step="0.2"
+        style={{ display: "block", margin: "0px auto", width: "60%" }}
+      />
+      <div
+        onClick={handleToggleButton}
+        style={
+          toggleButton
+            ? {
+                display: "block",
+                margin: "0px auto",
+                width: "60%",
+                padding: "20px",
+                textAlign: "center",
+                background: "#111",
+                marginTop: "20px",
+              }
+            : {
+                width: "100vw",
+                position: "fixed",
+                bottom: 0,
+                left: "0",
+                zIndex: "111",
+                height: "20px",
+                opacity: "0.9",
+                border: "0px",
+                background: "#222",
+                color: "#ffffff20",
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }
+        }
+      >
+        <div>{toggleButton ? "התחל" : "הסתר"}</div>
+      </div>
     </>
   );
 };
