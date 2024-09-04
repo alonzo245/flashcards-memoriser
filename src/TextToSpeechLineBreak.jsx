@@ -5,7 +5,7 @@ const TextToSpeechLineBreak = () => {
   const navigate = useNavigate();
   const speechRef = useRef(null);
   const [text, setText] = useState("");
-  const [textRate, settextRate] = useState(1.2);
+  const [textRate, settextRate] = useState(1);
   const [toggleButton, settogglebutton] = useState(true);
   const [utterances, setUtterances] = useState([]);
   const [position, setposition] = useState(0);
@@ -158,7 +158,7 @@ const TextToSpeechLineBreak = () => {
       <textarea
         value={text}
         onChange={handleTextChange}
-        rows="5"
+        rows="8"
         cols="30"
         placeholder="Enter text here..."
         style={{

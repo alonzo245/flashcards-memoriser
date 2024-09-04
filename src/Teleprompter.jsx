@@ -25,7 +25,7 @@ const FontRange = ({ value, setValue }) => {
 
   const [flashcardsSpeakRate, setFlashcardsSpeakRate] = useLocalStorage(
     "flashcardsSpeakRate",
-    1.4
+    1
   );
 
   // const handleIncrement = () => {

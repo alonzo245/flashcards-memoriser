@@ -59,9 +59,7 @@ function FlashcardsList() {
   //   return null;
   // }
 
-  return !list?.length ? (
-    <div style={{ width: "100%", textAlign: "center" }}>אין שמירות עדיין</div>
-  ) : (
+  return (
     <>
       <div className="flashcardsList">
         {width > mobileThreshold && !matchTeleprompter && (
@@ -74,69 +72,75 @@ function FlashcardsList() {
             </button>
           </div>
         )}
-        {list.map((id, key) => {
-          titlesToCopy.push(flashcards[id].title);
-          return (
-            <div
-              key={id}
-              className="flashcardListItem"
-              onClick={() =>
-                matchTeleprompter
-                  ? false
-                  : navigate(`/flashcards-memoriser/list/${id}`)
-              }
-            >
-              <span>
-                {`${key + 1}. `}
-                {flashcards[id].title ||
-                  `${timestampToDDMMYY(flashcards?.[id]?.created)}`}
-              </span>
-              {!matchTeleprompter && (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <span
-                    className="count-button"
-                    onClick={(e) => handleClick(e, id)}
+        {!list?.length ? (
+          <div style={{ width: "100%", textAlign: "center", padding: "20px" }}>
+            אין שמירות עדיין
+          </div>
+        ) : (
+          list.map((id, key) => {
+            titlesToCopy.push(flashcards[id].title);
+            return (
+              <div
+                key={id}
+                className="flashcardListItem"
+                onClick={() =>
+                  matchTeleprompter
+                    ? false
+                    : navigate(`/flashcards-memoriser/list/${id}`)
+                }
+              >
+                <span>
+                  {`${key + 1}. `}
+                  {flashcards[id].title ||
+                    `${timestampToDDMMYY(flashcards?.[id]?.created)}`}
+                </span>
+                {!matchTeleprompter && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
                   >
-                    {Object.keys(flashcards[id].list || {}).length}
-                  </span>
-                  <span
-                    className="start-game-button"
-                    onClick={(e) => handleClickRemember(e, id)}
-                  >
-                    📝
-                  </span>
-                  <span
-                    className="start-game-button"
-                    onClick={(e) => handleClick(e, id)}
-                  >
-                    ⬅️
-                  </span>
-                  <span
-                    className="start-game-button"
-                    onClick={(e) => handleClickInterval(e, id)}
-                  >
-                    ⏱️
-                  </span>
-                  <span
-                    className="start-game-button"
-                    onClick={(e) => handleClickTeleprompter(e, id)}
-                  >
-                    📺
-                  </span>
-                </div>
-              )}
-            </div>
-          );
-        })}
+                    <span
+                      className="count-button"
+                      onClick={(e) => handleClick(e, id)}
+                    >
+                      {Object.keys(flashcards[id].list || {}).length}
+                    </span>
+                    <span
+                      className="start-game-button"
+                      onClick={(e) => handleClickRemember(e, id)}
+                    >
+                      📝
+                    </span>
+                    <span
+                      className="start-game-button"
+                      onClick={(e) => handleClick(e, id)}
+                    >
+                      ⬅️
+                    </span>
+                    <span
+                      className="start-game-button"
+                      onClick={(e) => handleClickInterval(e, id)}
+                    >
+                      ⏱️
+                    </span>
+                    <span
+                      className="start-game-button"
+                      onClick={(e) => handleClickTeleprompter(e, id)}
+                    >
+                      📺
+                    </span>
+                  </div>
+                )}
+              </div>
+            );
+          })
+        )}
         <div>
           <button
-            className="navAdd"
+            className="navAdd2"
             onClick={() => {
               const stringToCopy = titlesToCopy.join("\n"); // Join array elements with newline
               navigator.clipboard
@@ -154,7 +158,7 @@ function FlashcardsList() {
             העתק נושאים
           </button>
           <button
-            className="navAdd"
+            className="navAdd2"
             onClick={() => {
               navigate("/flashcards-memoriser/text-to-speech-line-break");
             }}
@@ -162,12 +166,12 @@ function FlashcardsList() {
             טקסט לדיבור ראשי פרקים
           </button>
           <button
-            className="navAdd"
+            className="navAdd2"
             onClick={() => {
               navigate("/flashcards-memoriser/text-to-speech");
             }}
           >
-            יש באג באנדרואיד טקסט לדיבור
+            יש באג באנדרואידטקסט לדיבור
           </button>
         </div>
       </div>

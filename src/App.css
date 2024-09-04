@@ -132,6 +132,15 @@
   border: 0px;
   margin: 10px 0;
 }
+.navAdd2 {
+  width: 100%;
+  padding: 15px;
+  /* height: 100px; */
+  background-color: #111;
+  color: #888;
+  border: 0px;
+  margin: 2px 0;
+}
 .modalFontRow {
   display: flex;
   height: 100px;

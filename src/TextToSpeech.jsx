@@ -6,7 +6,7 @@ const TextToSpeech = () => {
   const speechRef = useRef(null);
   const speechObjRef = useRef(null);
   const [text, setText] = useState("");
-  const [textRate, settextRate] = useState(1.2);
+  const [textRate, settextRate] = useState(1);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [pause, setpause] = useState(true);
   const [toggleButton, settogglebutton] = useState(true);
@@ -158,7 +158,7 @@ const TextToSpeech = () => {
       <textarea
         value={text}
         onChange={handleTextChange}
-        rows="5"
+        rows="8"
         cols="30"
         placeholder="Enter text here..."
         style={{
