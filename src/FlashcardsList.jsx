@@ -173,6 +173,14 @@ function FlashcardsList() {
           >
             יש באג באנדרואידטקסט לדיבור
           </button>
+          <button
+            className="navAdd2"
+            onClick={() => {
+              navigate("/flashcards-memoriser/speech-save-file");
+            }}
+          >
+            דיבור להורדה{" "}
+          </button>
         </div>
       </div>
     </>
