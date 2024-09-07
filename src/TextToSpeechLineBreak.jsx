@@ -225,6 +225,42 @@ const TextToSpeechLineBreak = () => {
         <div>{toggleButton ? "התחל" : "הסתר"}</div>
       </div>
 
+      <div style={{ display: "flex", width: "50%", margin: "0 auto" }}>
+        <div
+          onClick={() => {
+            settextRate((textRate - 0.2).toFixed(1));
+            localStorage.setItem("text-rate", (textRate - 0.2).toFixed(1));
+          }}
+          style={{
+            display: "block",
+            margin: "0px auto",
+            width: "50%",
+            padding: "10px",
+            textAlign: "center",
+            background: "#111",
+            marginTop: "20px",
+          }}
+        >
+          <div>לאט</div>
+        </div>
+        <div
+          onClick={() => {
+            settextRate((textRate + 0.2).toFixed(1));
+            localStorage.setItem("text-rate", (textRate + 0.2).toFixed(1));
+          }}
+          style={{
+            display: "block",
+            margin: "0px auto",
+            width: "50%",
+            padding: "10px",
+            textAlign: "center",
+            background: "#111",
+            marginTop: "20px",
+          }}
+        >
+          <div>מהר</div>
+        </div>
+      </div>
       <div
         onClick={cleartext}
         style={{
