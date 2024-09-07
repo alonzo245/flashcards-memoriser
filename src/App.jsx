@@ -13,6 +13,7 @@ import Teleprompter from "./Teleprompter";
 import TextToSpeech from "./TextToSpeech";
 import TextToSpeechLineBreak from "./TextToSpeechLineBreak";
 import TextToSpeechSaveFile from "./TextToSpeechSaveFile";
+import TextToSpeech2 from "./TextToSpeech2";
 
 function App() {
   const { width } = useScreenSize();
@@ -33,6 +34,10 @@ function App() {
             <Route
               path="/flashcards-memoriser/speech-save-file"
               element={<TextToSpeechSaveFile />}
+            />
+            <Route
+              path="/flashcards-memoriser/speech-save-file2"
+              element={<TextToSpeech2 />}
             />
             <Route
               path="/flashcards-memoriser/text-to-speech-line-break"

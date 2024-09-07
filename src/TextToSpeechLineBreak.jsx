@@ -184,11 +184,11 @@ const TextToSpeechLineBreak = () => {
       <input
         onChange={handleRateChange}
         type="range"
-        min="0.8"
+        min="0.4"
         max="5"
         value={textRate}
         step="0.2"
-        style={{ display: "block", margin: "0px auto", width: "60%" }}
+        style={{ display: "block", margin: "0px auto", padding: "10px" }}
       />
 
       <div
