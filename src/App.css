@@ -333,6 +333,14 @@
   color: rgb(219, 219, 0);
 }
 
+.flashcard-tele-center {
+  text-align: center;
+}
+
+.flashcard-tele-right {
+  text-align: right;
+}
+
 .flashcard-tele-next {
   /* border: 1px solid #424242; */
   color: #616161;

@@ -7,6 +7,11 @@ import { useScreenSize } from "./hooks/useScreenSize";
 import { timestampToDDMMYY } from "./utils";
 import { useState } from "react";
 
+const isMobileDevice =
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+
 function FlashcardsList() {
   const { width } = useScreenSize();
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -36,20 +41,25 @@ function FlashcardsList() {
 
   const handleClickTeleprompter = (e, id) => {
     e.stopPropagation();
-    if (!isFullScreen) {
-      // Enter full screen mode
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
+
+    // Only enter/exit fullscreen if on mobile
+    if (isMobileDevice) {
+      if (!isFullScreen) {
+        // Enter full screen mode
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        }
+        setIsFullScreen(true);
+      } else {
+        // Exit full screen mode
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+        setIsFullScreen(false);
       }
-      setIsFullScreen(true);
-    } else {
-      // Exit full screen mode
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
-      setIsFullScreen(false);
     }
 
+    // Navigate regardless of device
     navigate(`/flashcards-memoriser/teleprompter/${id}`);
   };
 

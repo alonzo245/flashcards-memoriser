@@ -5,6 +5,7 @@ import "./App.css";
 import { useScreenSize } from "./hooks/useScreenSize";
 import { mobileThreshold } from "./config/theme.constants";
 import FullScreen from "./FullScreen";
+import TextAligment from "./TextAligment";
 
 const ProgressBar = ({ array, currentItem, children }) => {
   const progress = ((currentItem + 1) / array.length) * 100; // Calculate progress percentage
@@ -27,6 +28,9 @@ const FontRange = ({ value, setValue }) => {
     "flashcardsSpeakRate",
     1
   );
+
+  const [flashcardsTeleprompterTextAlign, setFlashcardsTeleprompterTextAlign] =
+    useLocalStorage("flashcardsTeleprompterTextAlign", "center");
 
   // const handleIncrement = () => {
   //   if (value < 1) {
@@ -76,6 +80,10 @@ const FontRange = ({ value, setValue }) => {
         הקטן פונט
       </button>
       <FullScreen />
+      <TextAligment
+        value={flashcardsTeleprompterTextAlign}
+        setValue={setFlashcardsTeleprompterTextAlign}
+      />
       <button
         className="nextBlockButton"
         onClick={() => {
@@ -105,6 +113,10 @@ function Teleprompter() {
   const [flashcardsTeleprompterFontSize] = useLocalStorage(
     "flashcardsTeleprompterFontSize",
     50
+  );
+  const [flashcardsTeleprompterTextAlign] = useLocalStorage(
+    "flashcardsTeleprompterTextAlign",
+    "center"
   );
   const { listId } = useParams();
   const [position, setPosition] = useState(0);
@@ -285,11 +297,17 @@ function Teleprompter() {
         >
           {flashcards[listId]?.list[position]?.text && (
             <div
-              className="flashcard-tele"
+              className={`flashcard-tele flashcard-tele-right ${
+                flashcardsTeleprompterTextAlign === "center" ? "right" : "right"
+              }`}
               style={
                 !flashcardsTeleprompterFontSize
                   ? null
-                  : { fontSize: flashcardsTeleprompterFontSize }
+                  : {
+                      fontSize: flashcardsTeleprompterFontSize,
+                      textAlign: flashcardsTeleprompterTextAlign,
+                      width: "100vw",
+                    }
               }
             >
               <div
